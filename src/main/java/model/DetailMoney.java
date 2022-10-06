@@ -86,7 +86,7 @@ public class DetailMoney {
         this.note = note;
     }
 
-    public Date getDate() {
+    public java.sql.Date getDate() {
         return date;
     }
 
