@@ -36,6 +36,27 @@ public class CategoryDAO implements ICategoryDAO {
         }
         return categories;
     }
+    public List<Category> selectAllCatalogByIdUser(int user_id) {
+        List<Category> categoryList = new ArrayList<>();
+        try {
+            String query = "select * from category where user_id = ?";
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1,user_id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int idCategory = resultSet.getInt("idCategory");
+                String name = resultSet.getString("name");
+                String note = resultSet.getString("note");
+                int idUser = resultSet.getInt("user_id");
+                categoryList.add(new Category(idCategory, name, note, idUser));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categoryList;
+    }
 
     @Override
     public boolean editCategory(Category category) {
