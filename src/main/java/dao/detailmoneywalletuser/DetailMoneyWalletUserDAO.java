@@ -10,7 +10,6 @@ import java.util.List;
 
 import static connectionDB.ConnectionDB.getConnection;
 
-//import static connectionDB.ConnectionDB.getConnection;
 
 public class DetailMoneyWalletUserDAO implements IDetailMoneyWalletUserDAO {
 

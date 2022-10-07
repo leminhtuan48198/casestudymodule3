@@ -13,6 +13,7 @@ import java.util.List;
 
 @WebServlet(name = "detailMoneyWalletUser", urlPatterns = "/detailMWU")
 
+
 public class DetailMoneyWalletUserServlet extends HttpServlet {
     private DetailMoneyWalletUserDAO detailMoneyWalletUserDAO;
 
