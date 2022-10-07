@@ -25,9 +25,9 @@
 
         <c:if test="${not empty userobj }">
             <div class="col-md-3">
-                <a href="checkout.jsp"><i class="fa-solid fa-cart-plus fa-2x"></i></a>
+                <a href="checkout.jsp"><i class="fa fa-2x fa-address-card" aria-hidden="true"></i></a>
 
-                <a href="login.jsp" class="btn btn-success ml-4"><i class="fas fa-user-plus"></i> ${userobj.userName}</a>
+                <a  class="btn btn-success ml-4"><i class="fas fa-user-plus"></i> ${userobj.userName}</a>
                 <a href="logout"
                    class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Logout</a>
             </div>
@@ -58,15 +58,15 @@
                 <a style="color: #222222" class="nav-link dark" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a style="color: #222222" class="nav-link " href="#"><i class="fa-solid fa-book-open-reader"></i> Best Selling</a>
+                <a style="color: #222222" class="nav-link " href="#"><i class="fa fa-id-card" aria-hidden="true"></i> Category Wallet</a>
             </li>
 
             <li class="nav-item active">
-                <a style="color: #222222" class="nav-link " href="#"><i class="fa-solid fa-book"></i> New Book</a>
+                <a style="color: #222222" class="nav-link " href="#"><i class="fa fa-credit-card" aria-hidden="true"></i> New Wallet</a>
             </li>
 
             <li class="nav-item active">
-                <a style="color: #222222" class="nav-link disabled " href="#"><i class="fa-solid fa-book-open"></i> Old Book</a>
+                <a style="color: #222222" class="nav-link disabled " href="#"><i class="fa fa-cc-discover" aria-hidden="true"></i> Old Wallet</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">

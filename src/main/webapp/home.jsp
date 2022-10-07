@@ -49,9 +49,12 @@
     <div class="service-content">
         <div class="col">
             <i class="bx bx-cast"></i>
-            <h3> Web Development</h3>
-            <p>There are many variations of passages of Loem Ipsum variable, but the majority have
-                suffered.</p>
+            <img width="250px" height="100px" src="img/zalopay-logo-643ADC36A4-seeklogo.com.png">
+            <h3> ZALO PAY</h3>
+            <p>Total number money in wallet: </p>
+            <p>Total money in current: </p>
+<%--            href="view_books.jsp?bid=<%=b.getBookId() %>"--%>
+            <a href="view_wallet.jsp" style="color: white;" class="btn btn-primary btn-sm ml-1">Details </a>
         </div>
         <div class="col">
             <i class="bx bx-layer"></i>
