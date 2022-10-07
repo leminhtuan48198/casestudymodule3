@@ -2,7 +2,10 @@ package controller;
 
 
 import dao.DetailMoneyDAO;
+import dao.categoryDAO.CategoryDAO;
+import model.Category;
 import model.DetailMoney;
+import model.Users;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,14 +13,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name="DetailMoneyServlet", urlPatterns = "/detailMoneys")
 public class DetailMoneyServlet extends HttpServlet {
     private DetailMoneyDAO detailMoneyDAO;
+    public CategoryDAO categoryDAO =new CategoryDAO();
 
     public void init() {
         detailMoneyDAO = new DetailMoneyDAO();
@@ -80,12 +86,20 @@ public class DetailMoneyServlet extends HttpServlet {
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int idUser=0;
+
+
+        List<Category> categoryList=new ArrayList<>();
+        categoryList=categoryDAO.selectCategoryByIdUser(idUser);
+        request.setAttribute("categoryList",categoryList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/createMoneyIn.jsp");
+
         dispatcher.forward(request, response);
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
+
         int id = Integer.parseInt(request.getParameter("id"));
         DetailMoney existingDetailMoney = detailMoneyDAO.selectDetailMoney(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/edit.jsp");
