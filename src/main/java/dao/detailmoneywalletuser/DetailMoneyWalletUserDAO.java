@@ -8,7 +8,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-//import static connectionDB.ConnectionDB.getConnection;
+import static connectionDB.ConnectionDB.getConnection;
+
 
 public class DetailMoneyWalletUserDAO implements IDetailMoneyWalletUserDAO {
 
@@ -20,8 +21,8 @@ public class DetailMoneyWalletUserDAO implements IDetailMoneyWalletUserDAO {
     public List<DetailMoneyWalletUser> selectDetailMoneyWallet() {
         List<DetailMoneyWalletUser> listDetailWalletUser = new ArrayList<>();
         try{
-            String query = "select * from detailmoney_wallet_user2";
-//            connection = getConnection();
+            String query = "select * from detailmoney_wallet_users2";
+            connection = getConnection();
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
@@ -34,7 +35,7 @@ public class DetailMoneyWalletUserDAO implements IDetailMoneyWalletUserDAO {
                 listDetailWalletUser.add(new DetailMoneyWalletUser(idUser,idWallet,icon,name,finalMoney,sumMoney));
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+           e.printStackTrace();
         }
         return listDetailWalletUser;
     }
