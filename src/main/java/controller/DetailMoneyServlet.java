@@ -80,7 +80,7 @@ public class DetailMoneyServlet extends HttpServlet {
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/createMoneyIn.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -105,7 +105,7 @@ public class DetailMoneyServlet extends HttpServlet {
         Date date = Date.valueOf(request.getParameter("date"));
         DetailMoney newDetailMoney = new DetailMoney(id_wallet,money,id_category,note,date);
         detailMoneyDAO.insertDetailMoney(newDetailMoney);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/createMoneyIn.jsp");
         dispatcher.forward(request, response);
     }
 
