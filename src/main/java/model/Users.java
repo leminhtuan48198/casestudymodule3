@@ -1,25 +1,25 @@
 package model;
 
 public class Users {
-private int id;
+private int idUser;
 private String userName;
 private String password;
 
     public Users() {
     }
 
-    public Users(int id, String userName, String password) {
-        this.id = id;
+    public Users(int idUser, String userName, String password) {
+        this.idUser = idUser;
         this.userName = userName;
         this.password = password;
     }
 
     public int getId() {
-        return id;
+        return idUser;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idUser = id;
     }
 
     public String getUserName() {

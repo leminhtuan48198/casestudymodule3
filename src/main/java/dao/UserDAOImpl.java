@@ -43,8 +43,8 @@ try {
     ResultSet rs= ps.executeQuery();
     while (rs.next()){
         users=new Users();
-        users.setUserName(rs.getString(1));
-        users.setPassword(rs.getString(2));
+        users.setUserName(rs.getString(2));
+        users.setPassword(rs.getString(3));
     }
 } catch (SQLException e) {
     e.printStackTrace();
