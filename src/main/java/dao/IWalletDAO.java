@@ -1,4 +1,4 @@
-package dao.walletDAO;
+package dao;
 
 import model.Wallet;
 

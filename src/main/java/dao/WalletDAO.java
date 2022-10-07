@@ -1,6 +1,6 @@
-package dao.walletDAO;
+package dao;
 
-import dao.walletDAO.IWalletDAO;
+import dao.IWalletDAO;
 import model.Wallet;
 
 import java.sql.*;
