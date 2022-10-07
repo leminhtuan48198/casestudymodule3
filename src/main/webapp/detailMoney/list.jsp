@@ -9,7 +9,10 @@
 <center>
     <h1>DetailMoney Management</h1>
     <h2>
-        <a href="/detailMoneys?action=create">Add New DetailMoney</a>
+        <a href="/detailMoneys?action=createIn">Add New  Money Input </a>
+    </h2>
+    <h2>
+        <a href="/detailMoneys?action=createOut">Add New  Money Output </a>
     </h2>
 </center>
 <div align="center">
