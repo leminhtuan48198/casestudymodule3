@@ -15,7 +15,7 @@
     <form method="post">
         <table border="1" cellpadding="5">
             <c:if test="${showCategory != null}">
-                <input type="hidden" name="id" value="<c:out value='${showCategory.id}' />"/>
+                <input type="hidden" name="idCategory" value="<c:out value='${showCategory.idCategory}' />"/>
             </c:if>
             <tr>
                 <th>Category Name:</th>
