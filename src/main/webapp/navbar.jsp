@@ -52,7 +52,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" idCategory="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a style="color: #222222" class="nav-link dark" href="#">Home <span class="sr-only">(current)</span></a>

@@ -42,7 +42,7 @@
     <h2 class="text-center">E-Wallet Management System</h2>
 </div>
 
-<section class="services" id="services">
+<section class="services" idCategory="services">
     <div class="center">
         <h3>WHAT WE HAVE ?</h3>
     </div>
