@@ -10,7 +10,6 @@ import java.util.List;
 
 public class WalletDAO implements IWalletDAO {
 
-
     private static final String INSERT_WALLET_SQL = "INSERT INTO WALLET (user_id, icon, Name, Description) VALUES (?,?,?,?);";
     private static final String SELECT_Wallet_BY_ID = "select IdWallet,user_id,icon, Name, Description from WALLET where IdWallet =?";
     private static final String SELECT_ALL_WALLET = "select * from WALLET";

@@ -11,10 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+<<<<<<< HEAD
+@WebServlet( urlPatterns = "/detailMWU")
+public class DetailMoneyWalletUserServlet  extends HttpServlet {
+=======
 @WebServlet(name = "detailMoneyWalletUser", urlPatterns = "/detailMWU")
 
 
 public class DetailMoneyWalletUserServlet extends HttpServlet {
+>>>>>>> a7f1a8421a452a1e7a7ed897a01c85981c136080
     private DetailMoneyWalletUserDAO detailMoneyWalletUserDAO;
 
     public void init() {

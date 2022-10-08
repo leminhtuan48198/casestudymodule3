@@ -33,9 +33,6 @@
 <body>
 <%--<body style="background-color: #dec3c3">--%>
 
-<%
-    Users u=(Users)session.getAttribute("userobj");
-%>
 
 <%@include file="navbar.jsp"%>
 <div class="container-fluid back-img">
@@ -51,10 +48,12 @@
             <i class="bx bx-cast"></i>
             <img width="250px" height="100px" src="img/zalopay-logo-643ADC36A4-seeklogo.com.png">
             <h3> ZALO PAY</h3>
+<c:if test="${not empty userobj }">
             <p>Total number money in wallet: </p>
             <p>Total money in current: </p>
 <%--            href="view_books.jsp?bid=<%=b.getBookId() %>"--%>
-            <a href="view_wallet.jsp" style="color: white;" class="btn btn-primary btn-sm ml-1">Details </a>
+            <a href="/detailMWU?action=df" style="color: white;" class="btn btn-primary btn-sm ml-1">Details </a>
+</c:if>
         </div>
         <div class="col">
             <i class="bx bx-layer"></i>

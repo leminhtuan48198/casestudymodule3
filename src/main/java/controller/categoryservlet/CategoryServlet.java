@@ -18,7 +18,7 @@ import java.util.List;
 public class CategoryServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private CategoryDAO categoryDAO;
+    public CategoryDAO categoryDAO;
 
     public void init() {
         categoryDAO = new CategoryDAO();

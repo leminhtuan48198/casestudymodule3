@@ -31,6 +31,17 @@
         </td>
       </tr>
       <tr>
+        <th>Category</th>
+        <td>
+          <select name="id_category" >
+            <c:forEach var="category" items="${categoryList}">
+              <option value="${category.idCategory}"><c:out value="${category.name}"/></option>
+            </c:forEach>
+          </select>
+        </td>
+
+      </tr>
+      <tr>
         <th>Note</th>
         <td>
           <input type="text" name="note"  size="15" />

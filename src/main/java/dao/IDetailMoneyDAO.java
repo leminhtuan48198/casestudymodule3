@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IDetailMoneyDAO {
-    public void insertDetailMoney(DetailMoney detailMoney) throws SQLException;
+    void insertDetailMoneyIn(DetailMoney detailMoney) throws SQLException;
+
+    public void insertDetailMoneyOut(DetailMoney detailMoney) throws SQLException;
 
     public DetailMoney selectDetailMoney(int id);
 

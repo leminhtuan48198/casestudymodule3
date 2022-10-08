@@ -14,7 +14,17 @@ public class DetailMoneyDAO implements IDetailMoneyDAO{
         return connection;
     }
     @Override
-    public void insertDetailMoney(DetailMoney detailMoney) throws SQLException {
+    public void insertDetailMoneyIn(DetailMoney detailMoney) throws SQLException {
+        Connection connection=getConnection();
+        PreparedStatement preparedStatement=connection.prepareStatement("insert into detailMoney(id_wallet,money,note,date) values (?,?,?,?)");
+        preparedStatement.setInt(1,detailMoney.getId_wallet());
+        preparedStatement.setDouble(2,detailMoney.getMoney());
+//        preparedStatement.setInt(3,detailMoney.getId_category());
+        preparedStatement.setString(3,detailMoney.getNote());
+        preparedStatement.setDate(4,detailMoney.getDate());
+        preparedStatement.executeUpdate();
+    }
+public void insertDetailMoneyOut(DetailMoney detailMoney) throws SQLException {
         Connection connection=getConnection();
         PreparedStatement preparedStatement=connection.prepareStatement("insert into detailMoney(id_wallet,money,id_category,note,date) values (?,?,?,?,?)");
         preparedStatement.setInt(1,detailMoney.getId_wallet());

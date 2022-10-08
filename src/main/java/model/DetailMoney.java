@@ -86,8 +86,13 @@ public class DetailMoney {
         this.note = note;
     }
 
+<<<<<<< HEAD
+    public Date getDate() {
+        return date;
+=======
     public java.sql.Date getDate() {
         return (java.sql.Date) date;
+>>>>>>> a7f1a8421a452a1e7a7ed897a01c85981c136080
     }
 
     public void setDate(Date date) {
