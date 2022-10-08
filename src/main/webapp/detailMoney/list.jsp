@@ -20,19 +20,24 @@
         <caption><h2>List of DetailMoneys</h2></caption>
         <tr>
             <th>idDetail</th>
-            <th>id_wallet</th>
+            <th>wallet</th>
             <th>money</th>
-            <th>id_category</th>
+            <th>category</th>
             <th>note</th>
             <th>date</th>
             <th>Actions</th>
         </tr>
-        <c:forEach var="detailMoney" items="${listDetailMoney}">
+        <c:forEach  var="detailMoney" items="${listDetailMoney}">
             <tr>
                 <td><c:out value="${detailMoney.idDetail}"/></td>
-                <td><c:out value="${detailMoney.id_wallet}"/></td>
+                <td><c:out value="${detailMoney.name_wallet}"/></td>
                 <td><c:out value="${detailMoney.money}"/></td>
-                <td><c:out value="${detailMoney.id_category}"/></td>
+
+                <td><c:if test="${detailMoney.money<0}">
+                    <c:out value="${detailMoney.name_category}"/>
+                </c:if>
+
+                </td>
                 <td><c:out value="${detailMoney.note}"/></td>
                 <td><c:out value="${detailMoney.date}"/></td>
                 <td><c:if test="${detailMoney.money>0}">

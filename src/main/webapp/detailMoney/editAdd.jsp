@@ -34,7 +34,7 @@
       <tr>
         <th>Amount Of Money:</th>
         <td>
-          <input type="text" name="money" size="45" required
+          <input type="text" name="money" size="45" required onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
                  value="<c:out value='${detailMoney.money}' />"
           />
         </td>

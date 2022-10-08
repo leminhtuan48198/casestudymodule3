@@ -16,7 +16,7 @@ public interface IDetailMoneyDAO {
 
     DetailMoney selectDetailMoneySub(int id);
 
-    public List<DetailMoney> selectAllDetailMoneys();
+    public List<DetailMoney> selectAllDetailMoneysByUserId(int user_id);
 
     public boolean deleteDetailMoney(int id) throws SQLException;
 
@@ -25,4 +25,6 @@ public interface IDetailMoneyDAO {
     boolean updateDetailMoneyAdd(DetailMoney detailMoney) throws SQLException;
 
     boolean updateDetailMoneySub(DetailMoney detailMoney) throws SQLException;
+
+    List<DetailMoney> selectDetailMoneyByIdWallet(int user_id, int id_wallet);
 }

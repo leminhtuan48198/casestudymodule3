@@ -5,7 +5,6 @@ import dao.DetailMoneyDAO;
 import dao.categoryDAO.CategoryDAO;
 import model.Category;
 import model.DetailMoney;
-import model.Users;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,6 +21,7 @@ import java.util.List;
 
 @WebServlet(name="DetailMoneyServlet", urlPatterns = "/detailMoneys")
 public class DetailMoneyServlet extends HttpServlet {
+    public static List<DetailMoney> detailMoneyListSort= new ArrayList<>();
     private DetailMoneyDAO detailMoneyDAO;
     public CategoryDAO categoryDAO =new CategoryDAO();
 
@@ -79,6 +79,9 @@ public class DetailMoneyServlet extends HttpServlet {
                 case "delete":
                     deleteDetailMoney(request, response);
                     break;
+                case "listDetailMoneyById_wallet":
+                    listDetailMoneyByIdWallet(request,response);
+
                 default:
                     listDetailMoney(request, response);
                     break;
@@ -88,9 +91,28 @@ public class DetailMoneyServlet extends HttpServlet {
         }
     }
 
+    private void listDetailMoneyByIdWallet(HttpServletRequest request, HttpServletResponse response) {
+        int id_wallet=Integer.parseInt(request.getParameter("idWallet"));
+        HttpSession httpSession=request.getSession();
+        int user_id=(int)httpSession.getAttribute("idUser");
+        detailMoneyListSort=detailMoneyDAO.selectDetailMoneyByIdWallet(user_id,id_wallet);
+        request.setAttribute("listDetailMoney", detailMoneyListSort);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void listDetailMoney(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List<DetailMoney> listDetailMoney = detailMoneyDAO.selectAllDetailMoneys();
+        HttpSession httpSession=request.getSession();
+        int user_id=(int)httpSession.getAttribute("idUser");
+
+        List<DetailMoney> listDetailMoney = detailMoneyDAO.selectAllDetailMoneysByUserId(user_id);
         request.setAttribute("listDetailMoney", listDetailMoney);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
         dispatcher.forward(request, response);
@@ -212,8 +234,9 @@ public class DetailMoneyServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         detailMoneyDAO.deleteDetailMoney(id);
-
-        List<DetailMoney> listDetailMoney = detailMoneyDAO.selectAllDetailMoneys();
+        HttpSession httpSession=request.getSession();
+        int user_id=(int)httpSession.getAttribute("idUser");
+        List<DetailMoney> listDetailMoney = detailMoneyDAO.selectAllDetailMoneysByUserId(user_id);
         request.setAttribute("listDetailMoney", listDetailMoney);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
         dispatcher.forward(request, response);
