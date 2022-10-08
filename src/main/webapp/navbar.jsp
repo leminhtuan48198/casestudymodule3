@@ -1,4 +1,4 @@
-<%--
+<%@ page import="model.Users" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 05/10/2022
@@ -8,6 +8,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false" %>
 <div class="container-fluid" style="height:10px; background-color: #eee3e7"></div>
+<%
+    Users u=(Users)session.getAttribute("userobj");
+%>
 
 <div class="container-fluid p-3 bg-light">
     <div class="row">
@@ -52,13 +55,20 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" idCategory="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a style="color: #222222" class="nav-link dark" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
+            <%
+            if(u==null){%>
+            <a href="login.jsp"></a>
+
+            <%
+                }else{%>
+
             <li class="nav-item active">
-                <a style="color: #222222" class="nav-link " href="#"><i class="fa fa-id-card" aria-hidden="true"></i> Category Wallet</a>
+                <a style="color: #222222" class="nav-link " href="/categorys?action=jjj"><i class="fa fa-id-card" aria-hidden="true"></i> Category Wallet</a>
             </li>
 
             <li class="nav-item active">
@@ -68,6 +78,10 @@
             <li class="nav-item active">
                 <a style="color: #222222" class="nav-link disabled " href="#"><i class="fa fa-cc-discover" aria-hidden="true"></i> Old Wallet</a>
             </li>
+            <%
+                }
+            %>
+
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <a href="#" class="btn btn-light my-2 my-sm-0" type="submit"><i class="fa-solid fa-gear"></i> Setting</a>

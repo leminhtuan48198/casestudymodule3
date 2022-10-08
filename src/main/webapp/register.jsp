@@ -46,7 +46,7 @@
                 </tr >
                 <tr class="form-group">
                     <td>Confirm Password:</td>
-                    <td><input placeholder="" name="rePass" type="password" id="myInput"></td>
+                    <td><input placeholder="" name="rePass" type="password" idCategory="myInput"></td>
                 </tr>
                 <tr class="form-group">
                     <td style="text-align: right"><input style="display: inline" type="checkbox" onclick="myFunction()"></td>

@@ -43,25 +43,25 @@
                         <c:remove var="succMsg" scope="session"/>
                     </c:if>
                     <form method="post" action="/login" class="register-form"
-                          id="login-form">
+                          idCategory="login-form">
                         <div class="form-group">
                             <label for="username"></label> <input
-                                type="text" name="userName" id="username"
+                                type="text" name="userName" idCategory="username"
                                 placeholder="Your Name" />
                         </div>
                         <div class="form-group">
                             <label for="password"></label> <input
-                                type="password" name="password" id="password"
+                                type="password" name="password" idCategory="password"
                                 placeholder="Password" />
                         </div>
                         <div class="form-group">
                             <label  for="remember-me"
                                    class="label-agree-term"><span><span></span></span>Remember
-                                me</label><input style="margin-top: -20px;margin-left: -50px" type="checkbox" name="remember-me" id="remember-me"
+                                me</label><input style="margin-top: -20px;margin-left: -50px" type="checkbox" name="remember-me" idCategory="remember-me"
                                    class="agree-term" />
                         </div>
                         <div class="form-group form-button">
-                            <input class="submit" type="submit" name="signin" id="signin"
+                            <input class="submit" type="submit" name="signin" idCategory="signin"
                                    class="form-submit" value="Log in" />
                         </div>
                     </form>

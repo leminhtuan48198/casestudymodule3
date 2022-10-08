@@ -24,6 +24,7 @@ public class LoginServlet extends HttpServlet {
             String password = req.getParameter("password");
             Users us=dao.checkLogin(userName,password);
             if (us!=null){
+                session.setAttribute("idUser",us.getId());
                 session.setAttribute("userobj",us);
                 resp.sendRedirect("home.jsp");
             }else {
