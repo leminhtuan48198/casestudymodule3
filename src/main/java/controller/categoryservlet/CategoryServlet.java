@@ -1,8 +1,10 @@
 package controller.categoryservlet;
 
 
+
 import dao.categoryDAO.CategoryDAO;
 import model.Category;
+import model.Users;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,7 +21,10 @@ public class CategoryServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private CategoryDAO categoryDAO;
-
+    private Users users;
+    public void initUser (){
+        users = new Users();
+    }
     public void init() {
         categoryDAO = new CategoryDAO();
     }
@@ -71,7 +76,9 @@ public class CategoryServlet extends HttpServlet {
 
     private void displayCategory(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List<Category> categoryList = categoryDAO.selectAllCatalog();
+//        int idCategory = Integer.parseInt(request.getParameter("idCategory"));
+        int user_id = Integer.parseInt(request.getParameter("user_id"));
+        List<Category> categoryList = categoryDAO.selectAllCatalogByIdUser(user_id);
         request.setAttribute("categoryList", categoryList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("viewcategory/list.jsp");
         dispatcher.forward(request, response);
@@ -105,11 +112,27 @@ public class CategoryServlet extends HttpServlet {
         }
     }
 
+    private void showCategory(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            int user_id = Integer.parseInt(request.getParameter("user_id"));
+            int idCategory = Integer.parseInt(request.getParameter("idCategory"));
+            Category showCategory = categoryDAO.getUserId(user_id);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("viewcategory/list.jsp");
+            request.setAttribute("showCategory", showCategory);
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void deleteCategory(HttpServletRequest request, HttpServletResponse response) {
         try {
             int idCategory = Integer.parseInt(request.getParameter("idCategory"));
+            int user_id = Integer.parseInt(request.getParameter("user_id"));
             categoryDAO.deleteCategory(idCategory);
-            List<Category> categoryList = categoryDAO.selectAllCatalog();
+            List<Category> categoryList = categoryDAO.selectAllCatalogByIdUser(user_id);
             request.setAttribute("categoryList", categoryList);
             RequestDispatcher dispatcher = request.getRequestDispatcher("viewcategory/list.jsp");
             dispatcher.forward(request, response);
