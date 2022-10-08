@@ -2,7 +2,6 @@ package controller.detailmoneywalletuserservlet;
 
 import dao.detailmoneywalletuser.DetailMoneyWalletUserDAO;
 import model.DetailMoneyWalletUser;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,12 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+<<<<<<< HEAD
 @WebServlet( urlPatterns = "/detailMWU")
 public class DetailMoneyWalletUserServlet  extends HttpServlet {
+=======
+@WebServlet(name = "detailMoneyWalletUser", urlPatterns = "/detailMWU")
+
+
+public class DetailMoneyWalletUserServlet extends HttpServlet {
+>>>>>>> a7f1a8421a452a1e7a7ed897a01c85981c136080
     private DetailMoneyWalletUserDAO detailMoneyWalletUserDAO;
-    public void init (){
+
+    public void init() {
         detailMoneyWalletUserDAO = new DetailMoneyWalletUserDAO();
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -40,6 +48,7 @@ public class DetailMoneyWalletUserServlet  extends HttpServlet {
         }
         try {
             switch (action) {
+
                 default:
                     displayDetailMWU(request, response);
                     break;
@@ -48,12 +57,13 @@ public class DetailMoneyWalletUserServlet  extends HttpServlet {
             e.printStackTrace();
         }
     }
-    private void displayDetailMWU (HttpServletRequest request,HttpServletResponse response){
-        try{
+
+    private void displayDetailMWU(HttpServletRequest request, HttpServletResponse response) {
+        try {
             List<DetailMoneyWalletUser> detailMWUList = detailMoneyWalletUserDAO.selectDetailMoneyWallet();
-            request.setAttribute("detailMWUList",detailMWUList);
+            request.setAttribute("detailMWUList", detailMWUList);
             RequestDispatcher dispatcher = request.getRequestDispatcher("viewdetailMWU/listDetailMWU.jsp");
-            dispatcher.forward(request,response);
+            dispatcher.forward(request, response);
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {
