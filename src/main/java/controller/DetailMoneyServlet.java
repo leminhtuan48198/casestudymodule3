@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @WebServlet(name="DetailMoneyServlet", urlPatterns = "/detailMoneys")
@@ -81,6 +82,13 @@ public class DetailMoneyServlet extends HttpServlet {
                     break;
                 case "listDetailMoneyById_wallet":
                     listDetailMoneyByIdWallet(request,response);
+                    break;
+                case "sortByDate":
+                    sortByDateIncrease(request,response);
+                    break;
+                case "reverseDate":
+                    sortByDateDecrease(request,response);
+                    break;
 
                 default:
                     listDetailMoney(request, response);
@@ -88,6 +96,32 @@ public class DetailMoneyServlet extends HttpServlet {
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
+        }
+    }
+
+    private void sortByDateDecrease(HttpServletRequest request, HttpServletResponse response) {
+        Collections.reverse(detailMoneyListSort);
+        request.setAttribute("listDetailMoney", detailMoneyListSort);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sortByDateIncrease(HttpServletRequest request, HttpServletResponse response) {
+        Collections.sort(detailMoneyListSort);
+        request.setAttribute("listDetailMoney", detailMoneyListSort);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -112,8 +146,9 @@ public class DetailMoneyServlet extends HttpServlet {
         HttpSession httpSession=request.getSession();
         int user_id=(int)httpSession.getAttribute("idUser");
 
-        List<DetailMoney> listDetailMoney = detailMoneyDAO.selectAllDetailMoneysByUserId(user_id);
-        request.setAttribute("listDetailMoney", listDetailMoney);
+         detailMoneyListSort = detailMoneyDAO.selectAllDetailMoneysByUserId(user_id);
+
+        request.setAttribute("listDetailMoney",detailMoneyListSort );
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
         dispatcher.forward(request, response);
     }

@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!doctype html>
+<html lang="en">
 <html>
 <head>
     <title>DetailMoney Management Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
 </head>
 <body>
 <center>
@@ -55,5 +58,9 @@
         </c:forEach>
     </table>
 </div>
+<a href="/detailMoneys?action=sortByDate" >sort By Date Increase <span class="glyphicon glyphicon-align-left"></span></a>
+<br>
+<a href="/detailMoneys?action=reverseDate">sort By Date Decrease</a>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
