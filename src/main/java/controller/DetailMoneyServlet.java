@@ -2,9 +2,11 @@ package controller;
 
 
 import dao.DetailMoneyDAO;
+import dao.WalletDAO;
 import dao.categoryDAO.CategoryDAO;
 import model.Category;
 import model.DetailMoney;
+import model.Wallet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,6 +27,7 @@ public class DetailMoneyServlet extends HttpServlet {
     public static List<DetailMoney> detailMoneyListSort= new ArrayList<>();
     private DetailMoneyDAO detailMoneyDAO;
     public CategoryDAO categoryDAO =new CategoryDAO();
+    public WalletDAO walletDAO=new WalletDAO();
 
     public void init() {
         detailMoneyDAO = new DetailMoneyDAO();
@@ -155,12 +158,16 @@ public class DetailMoneyServlet extends HttpServlet {
 
     private void showNewFormIn(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int idUser=0;
+        HttpSession httpSession=request.getSession();
 
+        int user_id= (int) httpSession.getAttribute("idUser");
+        List<Wallet> walletList=new ArrayList<>();
+        walletList=walletDAO.selectAllWalletByIdUser(user_id);
+        request.setAttribute("walletList",walletList);
 
-        List<Category> categoryList=new ArrayList<>();
-        categoryList=categoryDAO.selectCategoryByIdUser(idUser);
-        request.setAttribute("categoryList",categoryList);
+//        List<Category> categoryList=new ArrayList<>();
+//        categoryList=categoryDAO.selectCategoryByIdUser(idUser);
+//        request.setAttribute("categoryList",categoryList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/createMoneyIn.jsp");
 
         dispatcher.forward(request, response);
@@ -171,9 +178,13 @@ public class DetailMoneyServlet extends HttpServlet {
 
         int user_id= (int) httpSession.getAttribute("idUser");
         List<Category> categoryList=new ArrayList<>();
-        CategoryDAO categoryDAO=new CategoryDAO();
         categoryList=categoryDAO.selectAllCatalogByIdUser(user_id);
         request.setAttribute("categoryList",categoryList);
+
+        List<Wallet> walletList=new ArrayList<>();
+        walletList=walletDAO.selectAllWalletByIdUser(user_id);
+        request.setAttribute("walletList",walletList);
+
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/createMoneyOut.jsp");
         dispatcher.forward(request, response);
@@ -181,7 +192,12 @@ public class DetailMoneyServlet extends HttpServlet {
 
     private void showEditFormAdd(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
+        HttpSession httpSession=request.getSession();
 
+        int user_id= (int) httpSession.getAttribute("idUser");
+        List<Wallet> walletList=new ArrayList<>();
+        walletList=walletDAO.selectAllWalletByIdUser(user_id);
+        request.setAttribute("walletList",walletList);
             int id = Integer.parseInt(request.getParameter("id"));
             DetailMoney existingDetailMoney = detailMoneyDAO.selectDetailMoneyAdd(id);
             RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/editAdd.jsp");
@@ -194,6 +210,10 @@ public class DetailMoneyServlet extends HttpServlet {
         HttpSession httpSession=request.getSession();
 
         int user_id= (int) httpSession.getAttribute("idUser");
+
+        List<Wallet> walletList=new ArrayList<>();
+        walletList=walletDAO.selectAllWalletByIdUser(user_id);
+        request.setAttribute("walletList",walletList);
         List<Category> categoryList=new ArrayList<>();
         CategoryDAO categoryDAO=new CategoryDAO();
         categoryList=categoryDAO.selectAllCatalogByIdUser(user_id);

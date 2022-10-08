@@ -21,7 +21,11 @@
       <tr>
         <th> Wallet:</th>
         <td>
-          <input type="text" name="id_wallet" id="id_wallet" size="45" required/>
+          <select name="id_wallet" >
+            <c:forEach var="wallet" items="${walletList}">
+              <option value="${wallet.idWallet}"><c:out value="${wallet.nameWallet}"/></option>
+            </c:forEach>
+          </select>
         </td>
       </tr>
       <tr>
