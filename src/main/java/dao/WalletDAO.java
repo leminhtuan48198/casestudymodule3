@@ -1,5 +1,6 @@
 package dao;
 
+import connectionDB.ConnectionDB;
 import dao.IWalletDAO;
 import model.Wallet;
 
@@ -9,9 +10,9 @@ import java.util.List;
 
 public class WalletDAO implements IWalletDAO {
 
-    private String jdbcURL = "jdbc:mysql://localhost:3306/CaseStudyModule3";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "handc1";
+//    private String jdbcURL = "jdbc:mysql://localhost:3306/CaseStudyModule3";
+//    private String jdbcUsername = "root";
+//    private String jdbcPassword = "handc1";
 
     private static final String INSERT_WALLET_SQL = "INSERT INTO WALLET (user_id, icon, Name, Description) VALUES (?,?,?,?);";
     private static final String SELECT_Wallet_BY_ID = "select IdWallet,user_id,icon, Name, Description from WALLET where IdWallet =?";
@@ -19,18 +20,22 @@ public class WalletDAO implements IWalletDAO {
     private static final String DELETE_WALLET_SQL = "delete from WALLET where IdWallet = ?;";
     private static final String UPDATE_WALLET_SQL = "update WALLET set user_id= ?, icon = ?,name= ?, description =? where IdWallet = ?;";
 
-    protected Connection getConnection() {
-        Connection connection = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+//    protected Connection getConnection() {
+//        Connection connection = null;
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+//        } catch (SQLException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        return connection;
+//    }
+    protected Connection getConnection(){
+        Connection connection= ConnectionDB.getConnection();
         return connection;
     }
 
