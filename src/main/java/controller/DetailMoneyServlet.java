@@ -104,7 +104,9 @@ public class DetailMoneyServlet extends HttpServlet {
     }
     private void showNewFormOut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int user_id=1;
+        HttpSession httpSession=request.getSession();
+
+        int user_id= (int) httpSession.getAttribute("idUser");
         List<Category> categoryList=new ArrayList<>();
         CategoryDAO categoryDAO=new CategoryDAO();
         categoryList=categoryDAO.selectAllCatalogByIdUser(user_id);

@@ -9,10 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static connectionDB.ConnectionDB.getConnection;
-<<<<<<< HEAD
-=======
 
->>>>>>> a7f1a8421a452a1e7a7ed897a01c85981c136080
 
 public class DetailMoneyWalletUserDAO implements IDetailMoneyWalletUserDAO {
 
