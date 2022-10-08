@@ -20,5 +20,9 @@ public interface IDetailMoneyDAO {
 
     public boolean deleteDetailMoney(int id) throws SQLException;
 
-    public boolean updateDetailMoney(DetailMoney detailMoney) throws SQLException;
+//    public boolean updateDetailMoney(DetailMoney detailMoney) throws SQLException;
+
+    boolean updateDetailMoneyAdd(DetailMoney detailMoney) throws SQLException;
+
+    boolean updateDetailMoneySub(DetailMoney detailMoney) throws SQLException;
 }

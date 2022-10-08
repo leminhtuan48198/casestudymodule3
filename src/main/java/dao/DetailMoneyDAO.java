@@ -70,10 +70,10 @@ public void insertDetailMoneyOut(DetailMoney detailMoney) throws SQLException {
 
                 int id_wallet=rs.getInt("id_wallet");
                 double money=rs.getDouble("money");
-                int id_category=rs.getInt("id_category");
+//                int id_category=rs.getInt("id_category");
                 String note =rs.getString("note");
                 Date date=rs.getDate("date");
-                 detailMoney=new DetailMoney(id,id_wallet,money,id_category,note,date);
+                 detailMoney=new DetailMoney(id,id_wallet,money,note,date);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -138,7 +138,21 @@ public void insertDetailMoneyOut(DetailMoney detailMoney) throws SQLException {
     }
 
     @Override
-    public boolean updateDetailMoney(DetailMoney detailMoney) throws SQLException {
+    public boolean updateDetailMoneyAdd(DetailMoney detailMoney) throws SQLException {
+        boolean rowUpdated;
+        Connection connection=getConnection();
+        PreparedStatement preparedStatement =connection.prepareStatement("update detailMoney set " +
+                "id_wallet=?,money=?,note=?,date=? where idDetail=?");
+        preparedStatement.setInt(1,detailMoney.getId_wallet());
+        preparedStatement.setDouble(2,detailMoney.getMoney());
+        preparedStatement.setString(3,detailMoney.getNote());
+        preparedStatement.setDate(4,detailMoney.getDate());
+        preparedStatement.setInt(5,detailMoney.getIdDetail());
+        rowUpdated=preparedStatement.executeUpdate()>0;
+        return rowUpdated;
+    }
+    @Override
+    public boolean updateDetailMoneySub(DetailMoney detailMoney) throws SQLException {
         boolean rowUpdated;
         Connection connection=getConnection();
         PreparedStatement preparedStatement =connection.prepareStatement("update detailMoney set " +

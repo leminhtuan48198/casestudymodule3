@@ -24,7 +24,7 @@
         <input type="hidden" name="idDetail" value="<c:out value='${detailMoney.idDetail}' />"/>
       </c:if>
       <tr>
-        <th>Wallet:</th>
+        <th>Wallet Name:</th>
         <td>
           <input type="text" name="id_wallet" size="45"
                  value="<c:out value='${detailMoney.id_wallet}' />"
@@ -34,19 +34,19 @@
       <tr>
         <th>Amount Of Money:</th>
         <td>
-          <input type="text" name="money" size="45"
+          <input type="text" name="money" size="45" required
                  value="<c:out value='${detailMoney.money}' />"
           />
         </td>
       </tr>
-      <tr>
-        <th>Category:</th>
-        <td>
-          <input type="text" name="id_category" size="15"
-                 value="<c:out value='${detailMoney.id_category}' />"
-          />
-        </td>
-      </tr>
+<%--      <tr>--%>
+<%--        <th>Category:</th>--%>
+<%--        <td>--%>
+<%--          <input type="text" name="id_category" size="15"--%>
+<%--                 value="<c:out value='${detailMoney.id_category}' />"--%>
+<%--          />--%>
+<%--        </td>--%>
+<%--      </tr>--%>
       <tr>
         <th>Note:</th>
         <td>

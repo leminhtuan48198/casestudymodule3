@@ -17,7 +17,7 @@
         <table border="1" cellpadding="5">
             <caption>
                 <h2>
-                    Edit DetailMoney
+                    Edit DetailMoney Sub
                 </h2>
             </caption>
             <c:if test="${detailMoney != null}">
@@ -34,17 +34,19 @@
             <tr>
                 <th>Amount Of Money:</th>
                 <td>
-                    <input type="text" name="money" size="45"
-                           value="<c:out value='${detailMoney.money}' />"
+                    <input type="text" name="money" size="45" checked
+                           value="<c:out value='${-detailMoney.money}' />"
                     />
                 </td>
             </tr>
             <tr>
                 <th>Category:</th>
                 <td>
-                    <input type="text" name="id_category" size="15"
-                           value="<c:out value='${detailMoney.id_category}' />"
-                    />
+                    <select name="id_category">
+                        <c:forEach var="category" items="${categoryList}">
+                            <option value="${category.idCategory}"><c:out value="${category.name}"/></option>
+                        </c:forEach>
+                    </select>
                 </td>
             </tr>
             <tr>
