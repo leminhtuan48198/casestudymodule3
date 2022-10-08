@@ -9,10 +9,10 @@
 <center>
     <h1>DetailMoney Management</h1>
     <h2>
-        <a href="/detailMoneys?action=createIn">Add New  Money Input </a>
+        <a href="/detailMoneys?action=createIn">Add New  Money Income </a>
     </h2>
     <h2>
-        <a href="/detailMoneys?action=createOut">Add New  Money Output </a>
+        <a href="/detailMoneys?action=createOut">Add New  Money Outcome </a>
     </h2>
 </center>
 <div align="center">
@@ -35,8 +35,15 @@
                 <td><c:out value="${detailMoney.id_category}"/></td>
                 <td><c:out value="${detailMoney.note}"/></td>
                 <td><c:out value="${detailMoney.date}"/></td>
-                <td>
-                    <a href="/detailMoneys?action=edit&id=${detailMoney.idDetail}">Edit</a>
+                <td><c:if test="${detailMoney.money>0}">
+                    <a href="/detailMoneys?action=editAdd&id=${detailMoney.idDetail}">Change Add
+                    </a>
+                </c:if>
+                    <c:if test="${detailMoney.money<0}">
+                        <a href="/detailMoneys?action=editSub&id=${detailMoney.idDetail}">Change Sub</a>
+                    </c:if>
+
+
                     <a href="/detailMoneys?action=delete&id=${detailMoney.idDetail}">Delete</a>
                 </td>
             </tr>

@@ -67,8 +67,11 @@ public class DetailMoneyServlet extends HttpServlet {
                 case "createOut":
                     showNewFormOut(request, response);
                     break;
-                case "edit":
-                    showEditForm(request, response);
+                case "editAdd":
+                    showEditFormAdd(request, response);
+                    break;
+                case "editSub":
+                    showEditFormSub(request, response);
                     break;
                 case "delete":
                     deleteDetailMoney(request, response);
@@ -116,13 +119,23 @@ public class DetailMoneyServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+    private void showEditFormAdd(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
 
-        int id = Integer.parseInt(request.getParameter("id"));
-        DetailMoney existingDetailMoney = detailMoneyDAO.selectDetailMoney(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/edit.jsp");
-        request.setAttribute("detailMoney", existingDetailMoney);
+            int id = Integer.parseInt(request.getParameter("id"));
+            DetailMoney existingDetailMoney = detailMoneyDAO.selectDetailMoney(id);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/editAdd.jsp");
+            request.setAttribute("detailMoney", existingDetailMoney);
+        dispatcher.forward(request, response);
+
+    }
+    private void showEditFormSub(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            DetailMoney existingDetailMoney = detailMoneyDAO.selectDetailMoney(id);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/editSub.jsp");
+            request.setAttribute("detailMoney", existingDetailMoney);
         dispatcher.forward(request, response);
 
     }

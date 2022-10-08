@@ -58,6 +58,52 @@ public void insertDetailMoneyOut(DetailMoney detailMoney) throws SQLException {
 
         return detailMoney;
     }
+    @Override
+    public DetailMoney selectDetailMoneyAdd(int id) {
+        DetailMoney detailMoney=null;
+        Connection connection=getConnection();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement("select  * from detailMoney where idDetail=?");
+            preparedStatement.setInt(1,id);
+            ResultSet rs =preparedStatement.executeQuery();
+            while(rs.next()){
+
+                int id_wallet=rs.getInt("id_wallet");
+                double money=rs.getDouble("money");
+                int id_category=rs.getInt("id_category");
+                String note =rs.getString("note");
+                Date date=rs.getDate("date");
+                 detailMoney=new DetailMoney(id,id_wallet,money,id_category,note,date);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return detailMoney;
+    }
+    @Override
+    public DetailMoney selectDetailMoneySub(int id) {
+        DetailMoney detailMoney=null;
+        Connection connection=getConnection();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement("select  * from detailMoney where idDetail=?");
+            preparedStatement.setInt(1,id);
+            ResultSet rs =preparedStatement.executeQuery();
+            while(rs.next()){
+
+                int id_wallet=rs.getInt("id_wallet");
+                double money=rs.getDouble("money");
+                int id_category=rs.getInt("id_category");
+                String note =rs.getString("note");
+                Date date=rs.getDate("date");
+                 detailMoney=new DetailMoney(id,id_wallet,money,id_category,note,date);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return detailMoney;
+    }
 
     @Override
     public List<DetailMoney> selectAllDetailMoneys() {
