@@ -42,7 +42,9 @@ try {
     ps.setString(2,password);
     ResultSet rs= ps.executeQuery();
     while (rs.next()){
+
         users=new Users();
+users.setId(rs.getInt(1));
         users.setUserName(rs.getString(2));
         users.setPassword(rs.getString(3));
     }

@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class DetailMoney {
     protected int idDetail;
@@ -86,7 +86,7 @@ public class DetailMoney {
         this.note = note;
     }
 
-    public java.sql.Date getDate() {
+    public Date getDate() {
         return date;
     }
 

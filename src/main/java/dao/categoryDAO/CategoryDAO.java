@@ -19,7 +19,7 @@ public class CategoryDAO implements ICategoryDAO {
     public List<Category> selectAllCatalog() {
         List<Category> categories = new ArrayList<>();
         try {
-            String query = "select * from category";
+            String query = "select * from category where user_id=?";
             connection = getConnection();
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
@@ -41,7 +41,7 @@ public class CategoryDAO implements ICategoryDAO {
     public boolean editCategory(Category category) {
         boolean rowEdit;
         try {
-            String query = "update category set name = ?,note = ? where id = ?";
+            String query = "update category set name = ?,note = ? where idCategory = ?";
             connection = getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, category.getName());
