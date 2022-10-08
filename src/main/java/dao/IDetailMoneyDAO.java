@@ -12,6 +12,10 @@ public interface IDetailMoneyDAO {
 
     public DetailMoney selectDetailMoney(int id);
 
+    DetailMoney selectDetailMoneyAdd(int id);
+
+    DetailMoney selectDetailMoneySub(int id);
+
     public List<DetailMoney> selectAllDetailMoneys();
 
     public boolean deleteDetailMoney(int id) throws SQLException;

@@ -7,7 +7,7 @@
 </head>
 <body>
 <center>
-  <h1>DetailMoney Management</h1>
+  <h1>Detail Money Add Management</h1>
   <h2>
     <a href="detailMoneys?action=detailMoneys">List All DetailMoneys</a>
   </h2>
