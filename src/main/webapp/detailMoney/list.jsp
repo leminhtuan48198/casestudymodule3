@@ -62,5 +62,7 @@
 <a href="/detailMoneys?action=reverseDate">sort By Date Decrease</a>
 <br>
 <a href="detailMoneys?action=statisticRangeDate">statistic Range Date</a>
+<br>
+<a href="detailMoneys?action=statisticToday">statistic Today</a>
 </body>
 </html>

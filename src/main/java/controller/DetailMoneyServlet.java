@@ -56,6 +56,9 @@ public class DetailMoneyServlet extends HttpServlet {
                 case "statisticRangeDate":
                     statisticRangeDate(request,response);
                     break;
+                case "statisticToday":
+                    statisticToday(request,response);
+                    break;
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
@@ -72,6 +75,25 @@ public class DetailMoneyServlet extends HttpServlet {
             detailMoneyListSort=detailMoneyDAO.selectDetailMoneyByIdUserAndBetweenTwoDates(user_id,dateStart,dateEnd);
         }else{
             detailMoneyListSort=detailMoneyDAO.selectDetailMoneyByIdWalletAndBetweenTwoDates(user_id,wallet_id,dateStart,dateEnd);
+        }
+        request.setAttribute("listDetailMoney", detailMoneyListSort);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void statisticToday(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession httpSession=request.getSession();
+        int user_id=(int)httpSession.getAttribute("idUser");
+        int wallet_id =Integer.parseInt(request.getParameter("id_wallet"));
+        if(wallet_id==0){
+            detailMoneyListSort=detailMoneyDAO.selectDetailMoneyByIdUserAndToday(user_id);
+        }else{
+            detailMoneyListSort=detailMoneyDAO.selectDetailMoneyByIdWalletAndToday(user_id,wallet_id);
         }
         request.setAttribute("listDetailMoney", detailMoneyListSort);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
@@ -120,6 +142,9 @@ public class DetailMoneyServlet extends HttpServlet {
                 case "statisticRangeDate":
                     showStatisticRangeDateForm(request,response);
                     break;
+                case "statisticToday":
+                    showStatisticTodayForm(request,response);
+                    break;
 
                 default:
                     listDetailMoney(request, response);
@@ -138,6 +163,23 @@ public class DetailMoneyServlet extends HttpServlet {
         walletList=walletDAO.selectAllWalletByIdUser(user_id);
         request.setAttribute("walletList",walletList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/statisticRangeDate.jsp");
+
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void showStatisticTodayForm(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession httpSession=request.getSession();
+
+        int user_id= (int) httpSession.getAttribute("idUser");
+        List<Wallet> walletList=new ArrayList<>();
+        walletList=walletDAO.selectAllWalletByIdUser(user_id);
+        request.setAttribute("walletList",walletList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/statisticToday.jsp");
 
         try {
             dispatcher.forward(request, response);
