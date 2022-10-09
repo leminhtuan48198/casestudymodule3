@@ -53,9 +53,34 @@ public class DetailMoneyServlet extends HttpServlet {
                 case "editSub":
                     updateDetailMoneySub(request, response);
                     break;
+                case "statisticRangeDate":
+                    statisticRangeDate(request,response);
+                    break;
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
+        }
+    }
+
+    private void statisticRangeDate(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession httpSession=request.getSession();
+        int user_id=(int)httpSession.getAttribute("idUser");
+        int wallet_id =Integer.parseInt(request.getParameter("id_wallet"));
+        Date dateStart=Date.valueOf(request.getParameter("dateStart"));
+        Date dateEnd=Date.valueOf(request.getParameter("dateEnd"));
+        if(wallet_id==0){
+            detailMoneyListSort=detailMoneyDAO.selectDetailMoneyByIdUserAndBetweenTwoDates(user_id,dateStart,dateEnd);
+        }else{
+            detailMoneyListSort=detailMoneyDAO.selectDetailMoneyByIdWalletAndBetweenTwoDates(user_id,wallet_id,dateStart,dateEnd);
+        }
+        request.setAttribute("listDetailMoney", detailMoneyListSort);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -92,6 +117,9 @@ public class DetailMoneyServlet extends HttpServlet {
                 case "reverseDate":
                     sortByDateDecrease(request,response);
                     break;
+                case "statisticRangeDate":
+                    showStatisticRangeDateForm(request,response);
+                    break;
 
                 default:
                     listDetailMoney(request, response);
@@ -99,6 +127,24 @@ public class DetailMoneyServlet extends HttpServlet {
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
+        }
+    }
+
+    private void showStatisticRangeDateForm(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession httpSession=request.getSession();
+
+        int user_id= (int) httpSession.getAttribute("idUser");
+        List<Wallet> walletList=new ArrayList<>();
+        walletList=walletDAO.selectAllWalletByIdUser(user_id);
+        request.setAttribute("walletList",walletList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/statisticRangeDate.jsp");
+
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
