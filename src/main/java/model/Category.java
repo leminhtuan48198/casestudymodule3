@@ -28,6 +28,11 @@ public class Category {
         this.user_id = user_id;
     }
 
+    public Category(String name, String note) {
+        this.name = name;
+        this.note = note;
+    }
+
     public int getIdCategory() {
         return idCategory;
     }

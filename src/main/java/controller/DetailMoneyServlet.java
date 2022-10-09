@@ -19,11 +19,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name="DetailMoneyServlet", urlPatterns = "/detailMoneys")
+@WebServlet(name = "DetailMoneyServlet", urlPatterns = "/detailMoneys")
 public class DetailMoneyServlet extends HttpServlet {
-    public static List<DetailMoney> detailMoneyListSort= new ArrayList<>();
+    public static List<DetailMoney> detailMoneyListSort = new ArrayList<>();
     private DetailMoneyDAO detailMoneyDAO;
-    public CategoryDAO categoryDAO =new CategoryDAO();
+    public CategoryDAO categoryDAO = new CategoryDAO();
 
     public void init() {
         detailMoneyDAO = new DetailMoneyDAO();
@@ -80,7 +80,7 @@ public class DetailMoneyServlet extends HttpServlet {
                     deleteDetailMoney(request, response);
                     break;
                 case "listDetailMoneyById_wallet":
-                    listDetailMoneyByIdWallet(request,response);
+                    listDetailMoneyByIdWallet(request, response);
 
                 default:
                     listDetailMoney(request, response);
@@ -92,10 +92,10 @@ public class DetailMoneyServlet extends HttpServlet {
     }
 
     private void listDetailMoneyByIdWallet(HttpServletRequest request, HttpServletResponse response) {
-        int id_wallet=Integer.parseInt(request.getParameter("idWallet"));
-        HttpSession httpSession=request.getSession();
-        int user_id=(int)httpSession.getAttribute("idUser");
-        detailMoneyListSort=detailMoneyDAO.selectDetailMoneyByIdWallet(user_id,id_wallet);
+        int id_wallet = Integer.parseInt(request.getParameter("idWallet"));
+        HttpSession httpSession = request.getSession();
+        int user_id = (int) httpSession.getAttribute("idUser");
+        detailMoneyListSort = detailMoneyDAO.selectDetailMoneyByIdWallet(user_id, id_wallet);
         request.setAttribute("listDetailMoney", detailMoneyListSort);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
         try {
@@ -109,9 +109,8 @@ public class DetailMoneyServlet extends HttpServlet {
 
     private void listDetailMoney(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        HttpSession httpSession=request.getSession();
-        int user_id=(int)httpSession.getAttribute("idUser");
-
+        HttpSession httpSession = request.getSession();
+        int user_id = (int) httpSession.getAttribute("idUser");
         List<DetailMoney> listDetailMoney = detailMoneyDAO.selectAllDetailMoneysByUserId(user_id);
         request.setAttribute("listDetailMoney", listDetailMoney);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
@@ -120,25 +119,24 @@ public class DetailMoneyServlet extends HttpServlet {
 
     private void showNewFormIn(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int idUser=0;
-
-
-        List<Category> categoryList=new ArrayList<>();
-        categoryList=categoryDAO.selectCategoryByIdUser(idUser);
-        request.setAttribute("categoryList",categoryList);
+        int idUser = 0;
+        List<Category> categoryList = new ArrayList<>();
+        categoryList = categoryDAO.selectCategoryByIdUser(idUser);
+        request.setAttribute("categoryList", categoryList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/createMoneyIn.jsp");
 
         dispatcher.forward(request, response);
     }
+
     private void showNewFormOut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession httpSession=request.getSession();
+        HttpSession httpSession = request.getSession();
 
-        int user_id= (int) httpSession.getAttribute("idUser");
-        List<Category> categoryList=new ArrayList<>();
-        CategoryDAO categoryDAO=new CategoryDAO();
-        categoryList=categoryDAO.selectAllCatalogByIdUser(user_id);
-        request.setAttribute("categoryList",categoryList);
+        int user_id = (int) httpSession.getAttribute("idUser");
+        List<Category> categoryList = new ArrayList<>();
+        CategoryDAO categoryDAO = new CategoryDAO();
+        categoryList = categoryDAO.selectAllCategoryByIdUser(user_id);
+        request.setAttribute("categoryList", categoryList);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/createMoneyOut.jsp");
         dispatcher.forward(request, response);
@@ -147,27 +145,28 @@ public class DetailMoneyServlet extends HttpServlet {
     private void showEditFormAdd(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
 
-            int id = Integer.parseInt(request.getParameter("id"));
-            DetailMoney existingDetailMoney = detailMoneyDAO.selectDetailMoneyAdd(id);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/editAdd.jsp");
-            request.setAttribute("detailMoney", existingDetailMoney);
+        int id = Integer.parseInt(request.getParameter("id"));
+        DetailMoney existingDetailMoney = detailMoneyDAO.selectDetailMoneyAdd(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/editAdd.jsp");
+        request.setAttribute("detailMoney", existingDetailMoney);
         dispatcher.forward(request, response);
 
     }
+
     private void showEditFormSub(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
-        HttpSession httpSession=request.getSession();
+        HttpSession httpSession = request.getSession();
 
-        int user_id= (int) httpSession.getAttribute("idUser");
-        List<Category> categoryList=new ArrayList<>();
-        CategoryDAO categoryDAO=new CategoryDAO();
-        categoryList=categoryDAO.selectAllCatalogByIdUser(user_id);
-        request.setAttribute("categoryList",categoryList);
+        int user_id = (int) httpSession.getAttribute("idUser");
+        List<Category> categoryList = new ArrayList<>();
+        CategoryDAO categoryDAO = new CategoryDAO();
+        categoryList = categoryDAO.selectAllCategoryByIdUser(user_id);
+        request.setAttribute("categoryList", categoryList);
 
-            int id = Integer.parseInt(request.getParameter("id"));
-            DetailMoney existingDetailMoney = detailMoneyDAO.selectDetailMoneySub(id);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/editSub.jsp");
-            request.setAttribute("detailMoney", existingDetailMoney);
+        int id = Integer.parseInt(request.getParameter("id"));
+        DetailMoney existingDetailMoney = detailMoneyDAO.selectDetailMoneySub(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/editSub.jsp");
+        request.setAttribute("detailMoney", existingDetailMoney);
         dispatcher.forward(request, response);
 
     }
@@ -176,26 +175,27 @@ public class DetailMoneyServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
 
 //        int idDetail =Integer.parseInt(request.getParameter("idDetail"));
-        int id_wallet=Integer.parseInt(request.getParameter("id_wallet"));
-        double money=Double.parseDouble((request.getParameter("money")));
+        int id_wallet = Integer.parseInt(request.getParameter("id_wallet"));
+        double money = Double.parseDouble((request.getParameter("money")));
 //        int id_category=Integer.parseInt(request.getParameter("id_category"));
-        String note =request.getParameter("note");
+        String note = request.getParameter("note");
         Date date = Date.valueOf(request.getParameter("date"));
-        DetailMoney newDetailMoney = new DetailMoney(id_wallet,money,note,date);
+        DetailMoney newDetailMoney = new DetailMoney(id_wallet, money, note, date);
         detailMoneyDAO.insertDetailMoneyIn(newDetailMoney);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/createMoneyIn.jsp");
         dispatcher.forward(request, response);
     }
+
     private void insertDetailMoneyOut(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
 
 //        int idDetail =Integer.parseInt(request.getParameter("idDetail"));
-        int id_wallet=Integer.parseInt(request.getParameter("id_wallet"));
-        double money=-Double.parseDouble((request.getParameter("money")));
-        int id_category=Integer.parseInt(request.getParameter("id_category"));
-        String note =request.getParameter("note");
+        int id_wallet = Integer.parseInt(request.getParameter("id_wallet"));
+        double money = -Double.parseDouble((request.getParameter("money")));
+        int id_category = Integer.parseInt(request.getParameter("id_category"));
+        String note = request.getParameter("note");
         Date date = Date.valueOf(request.getParameter("date"));
-        DetailMoney newDetailMoney = new DetailMoney(id_wallet,money,id_category,note,date);
+        DetailMoney newDetailMoney = new DetailMoney(id_wallet, money, id_category, note, date);
         detailMoneyDAO.insertDetailMoneyOut(newDetailMoney);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/createMoneyOut.jsp");
         dispatcher.forward(request, response);
@@ -204,26 +204,27 @@ public class DetailMoneyServlet extends HttpServlet {
     private void updateDetailMoneySub(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         int idDetail = Integer.parseInt(request.getParameter("idDetail"));
-        int id_wallet=Integer.parseInt(request.getParameter("id_wallet"));
-        double money=-Double.parseDouble((request.getParameter("money")));
-        int id_category=Integer.parseInt(request.getParameter("id_category"));
-        String note =request.getParameter("note");
+        int id_wallet = Integer.parseInt(request.getParameter("id_wallet"));
+        double money = -Double.parseDouble((request.getParameter("money")));
+        int id_category = Integer.parseInt(request.getParameter("id_category"));
+        String note = request.getParameter("note");
         Date date = Date.valueOf(request.getParameter("date"));
-        DetailMoney newDetailMoney = new DetailMoney(idDetail,id_wallet,money,id_category,note,date);
+        DetailMoney newDetailMoney = new DetailMoney(idDetail, id_wallet, money, id_category, note, date);
 
         detailMoneyDAO.updateDetailMoneySub(newDetailMoney);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/editSub.jsp");
         dispatcher.forward(request, response);
     }
+
     private void updateDetailMoneyAdd(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         int idDetail = Integer.parseInt(request.getParameter("idDetail"));
-        int id_wallet=Integer.parseInt(request.getParameter("id_wallet"));
-        double money=Double.parseDouble((request.getParameter("money")));
+        int id_wallet = Integer.parseInt(request.getParameter("id_wallet"));
+        double money = Double.parseDouble((request.getParameter("money")));
 //        int id_category=Integer.parseInt(request.getParameter("id_category"));
-        String note =request.getParameter("note");
+        String note = request.getParameter("note");
         Date date = Date.valueOf(request.getParameter("date"));
-        DetailMoney newDetailMoney = new DetailMoney(idDetail,id_wallet,money,note,date);
+        DetailMoney newDetailMoney = new DetailMoney(idDetail, id_wallet, money, note, date);
 
         detailMoneyDAO.updateDetailMoneyAdd(newDetailMoney);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/editAdd.jsp");
@@ -234,8 +235,8 @@ public class DetailMoneyServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         detailMoneyDAO.deleteDetailMoney(id);
-        HttpSession httpSession=request.getSession();
-        int user_id=(int)httpSession.getAttribute("idUser");
+        HttpSession httpSession = request.getSession();
+        int user_id = (int) httpSession.getAttribute("idUser");
         List<DetailMoney> listDetailMoney = detailMoneyDAO.selectAllDetailMoneysByUserId(user_id);
         request.setAttribute("listDetailMoney", listDetailMoney);
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");

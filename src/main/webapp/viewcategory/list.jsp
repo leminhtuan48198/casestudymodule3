@@ -17,7 +17,7 @@ pageEncoding="ISO-8859-1"%>
 <div align="center" >
   <h2><a href="/categorys?action=create"> Create new category </a></h2>
   <table border="1">
-    <caption><h2>List Catalog </h2></caption>
+<%--    <caption><h2>List Catalog </h2></caption>--%>
     <tr>
       <th>Catalog</th>
       <th>Note</th>
