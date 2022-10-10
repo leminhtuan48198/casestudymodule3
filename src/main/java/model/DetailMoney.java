@@ -13,7 +13,6 @@ public class DetailMoney implements Comparable<DetailMoney>{
     protected String note;
     protected Date date;
 
-
     public DetailMoney() {
     }
 
