@@ -4,7 +4,7 @@
 <head>
     <title>Edit Category</title>
 </head>
-<body>
+<body style="background-color: lemonchiffon;">
 <center>
     <h1>Edit</h1>
     <h2 align="center">
@@ -13,7 +13,7 @@
 </center>
 <div align="center">
     <form method="post">
-        <table border="1px"  width="700px"  style="font-size: 30px ">
+        <table border="1px"  width="700px"  style="font-size: 30px " bgcolor="#ffb6c1">
             <c:if test="${showCategory != null}">
                 <input type="hidden" name="idCategory" value="<c:out value='${showCategory.idCategory}' />"/>
             </c:if>

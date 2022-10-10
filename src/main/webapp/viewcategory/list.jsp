@@ -8,7 +8,7 @@
   <%@include file="/css.jsp"%>
 
 </head>
-<body style="background-color: #f0fcff;">
+<body style="background-color: lemonchiffon;">
 <c:if test="${empty userobj }">
   <c:redirect url="/login.jsp"></c:redirect>
 </c:if>
@@ -17,7 +17,7 @@
 <h1 align="center" >Category Manager</h1>
 <div class="wrapper" align="center" >
   <h2 align="center" > <a href="/categorys?action=create"> <input type="button" value="Create new category">  </a></h2>
-  <table border="1px"  width="700px"  style="font-size: 30px ">
+  <table border="1px"  width="700px"  style="font-size: 30px " bgcolor="#ffb6c1">
     <%--    <caption><h2>List Catalog </h2></caption>--%>
     <tr align="center" >
       <th align="center">Name</th>
@@ -36,8 +36,6 @@
     </c:forEach>
   </table>
 </div>
-<div class="container-fluid text-center text-white p-3 mt-2" style="background-color: green">
-  <h5><i class="fa-solid fa-copyright"></i> Designed and Developed By Team</h5>
-</div>
+
 </body>
 </html>
