@@ -76,7 +76,7 @@
             </li>
 
             <li class="nav-item active">
-                <a style="color: #222222" class="nav-link disabled " href="#"><i class="fa fa-cc-discover" aria-hidden="true"></i> Old Wallet</a>
+                <a style="color: #222222" class="nav-link disabled " href="/wallets?action=dd"><i class="fa fa-cc-discover" aria-hidden="true"></i>Wallet</a>
             </li>
             <%
                 }

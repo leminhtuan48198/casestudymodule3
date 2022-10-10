@@ -4,14 +4,20 @@
 <html>
 <head>
     <title>wallet Management Application</title>
+    <%@include file="/css.jsp"%>
+
 </head>
-<body>
-<center>
-    <h1>Wallet Management</h1>
-    <h2>
+<body style="background-color: #f0fcff;">
+<c:if test="${empty userobj }">
+    <c:redirect url="/login.jsp"></c:redirect>
+</c:if>
+<%@include file="/navbar.jsp"%>
+
+    <h1 class="center">Wallet Management</h1>
+    <h2 class="center">
         <a href="/wallets?action=create">Add New wallet</a>
     </h2>
-</center>
+
 <div align="center">
     <table border="1" cellpadding="5">
         <caption><h2>List of wallets</h2></caption>
