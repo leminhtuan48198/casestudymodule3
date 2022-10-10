@@ -12,7 +12,7 @@ public class WalletDAO implements IWalletDAO {
 
     private static final String INSERT_WALLET_SQL = "INSERT INTO WALLET (user_id, icon, Name, Description) VALUES (?,?,?,?);";
     private static final String SELECT_Wallet_BY_ID = "select IdWallet,user_id,icon, Name, Description from WALLET where IdWallet =?";
-    private static final String SELECT_ALL_WALLET = "select * from WALLET";
+    private static final String SELECT_ALL_WALLET = "select * from WALLET where user_id = ?";
     private static final String DELETE_WALLET_SQL = "delete from WALLET where IdWallet = ?;";
     private static final String UPDATE_WALLET_SQL = "update WALLET set user_id= ?, icon = ?,name= ?, description =? where IdWallet = ?;";
 
@@ -95,7 +95,7 @@ public class WalletDAO implements IWalletDAO {
 
 
     @Override
-    public List<Wallet> selectAllWallets() {
+    public List<Wallet> selectAllWallets(int user_id) {
         // using try-with-resources to avoid closing resources (boiler plate code)
         List<Wallet> wallets = new ArrayList<>();
         // Step 1: Establishing a Connection

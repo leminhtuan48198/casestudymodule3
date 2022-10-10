@@ -11,63 +11,63 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-<<<<<<< HEAD
 @WebServlet( urlPatterns = "/detailMWU")
 public class DetailMoneyWalletUserServlet  extends HttpServlet {
-=======
-@WebServlet(name = "detailMoneyWalletUser", urlPatterns = "/detailMWU")
+
+    @WebServlet(name = "detailMoneyWalletUser", urlPatterns = "/detailMWU")
 
 
-public class DetailMoneyWalletUserServlet extends HttpServlet {
->>>>>>> a7f1a8421a452a1e7a7ed897a01c85981c136080
-    private DetailMoneyWalletUserDAO detailMoneyWalletUserDAO;
+    public class detailMoneyWalletUserServlet extends HttpServlet {
 
-    public void init() {
-        detailMoneyWalletUserDAO = new DetailMoneyWalletUserDAO();
-    }
+        private DetailMoneyWalletUserDAO detailMoneyWalletUserDAO;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
+        public void init() {
+            detailMoneyWalletUserDAO = new DetailMoneyWalletUserDAO();
         }
-        try {
-            switch (action) {
 
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+                throws ServletException, IOException {
+            String action = request.getParameter("action");
+            if (action == null) {
+                action = "";
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+            try {
+                switch (action) {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        try {
-            switch (action) {
-
-                default:
-                    displayDetailMWU(request, response);
-                    break;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-    }
 
-    private void displayDetailMWU(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            List<DetailMoneyWalletUser> detailMWUList = detailMoneyWalletUserDAO.selectDetailMoneyWallet();
-            request.setAttribute("detailMWUList", detailMWUList);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("viewdetailMWU/listDetailMWU.jsp");
-            dispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            String action = request.getParameter("action");
+            if (action == null) {
+                action = "";
+            }
+            try {
+                switch (action) {
+
+                    default:
+                        displayDetailMWU(request, response);
+                        break;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        private void displayDetailMWU(HttpServletRequest request, HttpServletResponse response) {
+            try {
+                List<DetailMoneyWalletUser> detailMWUList = detailMoneyWalletUserDAO.selectDetailMoneyWallet();
+                request.setAttribute("detailMWUList", detailMWUList);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("viewdetailMWU/listDetailMWU.jsp");
+                dispatcher.forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

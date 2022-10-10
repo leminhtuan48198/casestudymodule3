@@ -9,7 +9,7 @@ public interface IWalletDAO {
     public void insertWallet(Wallet wallet) throws SQLException;
     public Wallet selectWallet(int idWallet);
 
-    public List<Wallet> selectAllWallets();
+    public List<Wallet> selectAllWallets(int user_id);
 
     public boolean deleteWallet(int idWallet) throws SQLException;
 

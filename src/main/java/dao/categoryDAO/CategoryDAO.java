@@ -19,11 +19,11 @@ public class CategoryDAO implements ICategoryDAO {
     public List<Category> selectAllCatalog() {
         List<Category> categories = new ArrayList<>();
         try {
-<<<<<<< HEAD
+
             String query = "select * from category where user_id=?";
-=======
-            String query = "select * from category where idCategory = ?";
->>>>>>> a7f1a8421a452a1e7a7ed897a01c85981c136080
+
+
+
             connection = getConnection();
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();

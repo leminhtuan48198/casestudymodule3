@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -16,10 +17,10 @@ import java.util.List;
 @WebServlet(name = "WalletServlet", urlPatterns = "/wallets")
 public class WalletServlet extends HttpServlet {
 //    private static final long serialVersionUID = 1L;
-private WalletDAO userDAO;
+private WalletDAO walletDAO;
 
 public void init() {
-    userDAO = new WalletDAO();
+    walletDAO = new WalletDAO();
 }
 
 
@@ -78,20 +79,25 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
 }
 private void listWalet(HttpServletRequest request, HttpServletResponse response)
         throws SQLException, IOException, ServletException {
-    List<Wallet> listWallet = userDAO.selectAllWallets();
+    HttpSession httpSession=request.getSession();
+    int user_id= (int) httpSession.getAttribute("idUser");
+    List<Wallet> listWallet = walletDAO.selectAllWallets(user_id);
     request.setAttribute("listWallet", listWallet);
     RequestDispatcher dispatcher = request.getRequestDispatcher("wallet/list.jsp");
     dispatcher.forward(request, response);
 }
 private void insertWallet(HttpServletRequest request, HttpServletResponse response)
         throws SQLException, IOException, ServletException {
+    HttpSession httpSession=request.getSession();
+
+    int user_id= (int) httpSession.getAttribute("idUser");
     int idUser = Integer.parseInt(request.getParameter("idUser"));
     String icon = request.getParameter("icon");
     String name = request.getParameter("name");
     String description = request.getParameter("description");
-    Wallet newWallet = new Wallet(idUser, icon, name, description);
+    Wallet newWallet = new Wallet(user_id, icon, name, description);
     // userDAO.insertUser(newUser);
-    userDAO.insertWallet(newWallet);
+    walletDAO.insertWallet(newWallet);
     RequestDispatcher dispatcher = request.getRequestDispatcher("wallet/create.jsp");
     dispatcher.forward(request, response);
 
@@ -110,7 +116,7 @@ private void updateWallet(HttpServletRequest request, HttpServletResponse respon
     String description = request.getParameter("description");
 
     Wallet book = new Wallet(id, idUser, icon, name, description);
-    userDAO.updateUser(book);
+    walletDAO.updateUser(book);
     RequestDispatcher dispatcher = request.getRequestDispatcher("wallet/edit.jsp");
     dispatcher.forward(request, response);
 }
@@ -118,7 +124,7 @@ private void updateWallet(HttpServletRequest request, HttpServletResponse respon
 private void search(HttpServletRequest request, HttpServletResponse response)
         throws SQLException, IOException, ServletException {
     String name = request.getParameter("name");
-    List<Wallet> walletList = userDAO.selectUsersByName(name);
+    List<Wallet> walletList = walletDAO.selectUsersByName(name);
     request.setAttribute("WalletByName", walletList);
     RequestDispatcher dispatcher = request.getRequestDispatcher("wallet/findWallet.jsp");
     dispatcher.forward(request, response);
@@ -126,7 +132,7 @@ private void search(HttpServletRequest request, HttpServletResponse response)
 
 private void sort(HttpServletRequest request, HttpServletResponse response)
         throws SQLException, IOException, ServletException {
-    List<Wallet> walletList = userDAO.sortByName();
+    List<Wallet> walletList = walletDAO.sortByName();
     request.setAttribute("listWallet", walletList);
     RequestDispatcher dispatcher = request.getRequestDispatcher("wallet/list.jsp");
     dispatcher.forward(request, response);
@@ -141,21 +147,22 @@ private void showNewForm(HttpServletRequest request, HttpServletResponse respons
 private void showEditForm(HttpServletRequest request, HttpServletResponse response)
         throws SQLException, ServletException, IOException {
     int id = Integer.parseInt(request.getParameter("idWallet"));
-    Wallet existingUser = userDAO.selectWallet(id);
+    Wallet existingUser = walletDAO.selectWallet(id);
     RequestDispatcher dispatcher = request.getRequestDispatcher("wallet/edit.jsp");
     request.setAttribute("wallet", existingUser);
     dispatcher.forward(request, response);
 
     //User existingUser = userDAO.selectUser(id);
 
-    existingUser = userDAO.getWalletById(id);
+    existingUser = walletDAO.getWalletById(id);
 }
 private void deleteWallet(HttpServletRequest request, HttpServletResponse response)
         throws SQLException, IOException, ServletException {
+    HttpSession httpSession = request.getSession();
     int id = Integer.parseInt(request.getParameter("idWallet"));
-    userDAO.deleteWallet(id);
-
-    List<Wallet> walletList = userDAO.selectAllWallets();
+    walletDAO.deleteWallet(id);
+int user_id = (int) httpSession.getAttribute("idUser");
+    List<Wallet> walletList = walletDAO.selectAllWallets(user_id);
     request.setAttribute("listWallet", walletList);
     RequestDispatcher dispatcher = request.getRequestDispatcher("wallet/list.jsp");
     dispatcher.forward(request, response);

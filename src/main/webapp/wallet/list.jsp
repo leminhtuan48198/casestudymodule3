@@ -17,7 +17,7 @@
         <caption><h2>List of wallets</h2></caption>
         <tr>
             <th>ID</th>
-            <th>ID User</th>
+            <th>Name User</th>
             <th>Icon</th>
             <th>Name wallet</th>
             <th>Description</th>
