@@ -5,9 +5,14 @@
 <html>
 <head>
     <title>DetailMoney Management Application</title>
+    <%@include file="/css.jsp"%>
 
 </head>
-<body>
+<body style="background-color: #f0fcff;">
+<c:if test="${empty userobj }">
+    <c:redirect url="/login.jsp"></c:redirect>
+</c:if>
+<%@include file="/navbar.jsp"%>
 <center>
     <h1>DetailMoney Management</h1>
     <h2>
@@ -57,12 +62,14 @@
         </c:forEach>
     </table>
 </div>
-<a href="/detailMoneys?action=sortByDate" ><input type="button" value="sort By Date Increase "></a>
-<br>
-<a href="/detailMoneys?action=reverseDate">sort By Date Decrease</a>
-<br>
-<a href="detailMoneys?action=statisticRangeDate">statistic Range Date</a>
-<br>
-<a href="detailMoneys?action=statisticToday">statistic Today</a>
+<div class="center ">
+    <a  href="/detailMoneys?action=sortByDate" ><input class="btn btn-primary mt-2" type="button" value="sort By Date Increase "></a>
+    <br>
+    <a href="/detailMoneys?action=reverseDate"><input class="btn btn-primary mt-2" type="button" value="sort By Date Decrease"></a>
+    <br>
+    <a  href="detailMoneys?action=statisticRangeDate"><input class="btn btn-primary mt-2" type="button" value="Statistic Range Date"></a>
+    <br>
+    <a  href="detailMoneys?action=statisticToday"><input class="btn btn-primary mt-2" type="button" value="Statistic Today"></a>
+</div>
 </body>
 </html>
