@@ -6,7 +6,7 @@ public class Category {
     private String note;
     private int user_id;
 
-    private Category() {
+    public Category() {
     }
 
     public Category(int idCategory, String name, String note, int user_id) {
