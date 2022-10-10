@@ -3,6 +3,7 @@ package controller.categoryservlet;
 
 import dao.categoryDAO.CategoryDAO;
 import model.Category;
+import model.Users;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -71,8 +73,11 @@ public class CategoryServlet extends HttpServlet {
 
     private void displayCategory(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List<Category> categoryList = categoryDAO.selectAllCatalog();
-        request.setAttribute("categoryList", categoryList);
+        HttpSession session=request.getSession();
+
+        int user_id= (int) session.getAttribute("idUser");
+        List<Category> categoryList = categoryDAO.selectAllCatalog(user_id);
+        session.setAttribute("categoryList", categoryList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("viewcategory/list.jsp");
         dispatcher.forward(request, response);
     }
@@ -107,9 +112,10 @@ public class CategoryServlet extends HttpServlet {
 
     private void deleteCategory(HttpServletRequest request, HttpServletResponse response) {
         try {
+            int uid=Integer.parseInt(request.getParameter("user_id"));
             int idCategory = Integer.parseInt(request.getParameter("idCategory"));
             categoryDAO.deleteCategory(idCategory);
-            List<Category> categoryList = categoryDAO.selectAllCatalog();
+            List<Category> categoryList = categoryDAO.selectAllCatalog(uid);
             request.setAttribute("categoryList", categoryList);
             RequestDispatcher dispatcher = request.getRequestDispatcher("viewcategory/list.jsp");
             dispatcher.forward(request, response);

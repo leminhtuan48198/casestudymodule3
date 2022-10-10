@@ -5,7 +5,7 @@ import model.Category;
 import java.util.List;
 
 public interface ICategoryDAO {
-    List<Category> selectAllCatalog();
+    List<Category> selectAllCatalog(int User_id );
     boolean editCategory(Category category);
     Category getById(int id);
     boolean deleteCategory(int id);
