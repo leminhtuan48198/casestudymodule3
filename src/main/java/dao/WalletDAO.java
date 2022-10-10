@@ -1,15 +1,11 @@
 package dao;
 
 import connectionDB.ConnectionDB;
-import dao.IWalletDAO;
-import model.Category;
 import model.Wallet;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import static connectionDB.ConnectionDB.getConnection;
 
 public class WalletDAO implements IWalletDAO {
 
@@ -106,6 +102,7 @@ public class WalletDAO implements IWalletDAO {
 
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_WALLET);) {
+            preparedStatement.setInt(1,user_id);
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
@@ -245,26 +242,27 @@ public class WalletDAO implements IWalletDAO {
 
     }
 
-    public boolean updateUser(Wallet wallet) throws SQLException {
-        boolean rowUpdated;
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(UPDATE_WALLET_SQL);) {
-            statement.setInt(1, wallet.getIdUser());
-            statement.setString(2, wallet.getIcon());
-            statement.setString(3, wallet.getNameWallet());
-            statement.setString(4, wallet.getDescription());
-            statement.setInt(5, wallet.getIdWallet());
+//    public boolean updateUser(Wallet wallet) throws SQLException {
+//        boolean rowUpdated;
+//        try (Connection connection = getConnection();
+//             PreparedStatement statement = connection.prepareStatement(UPDATE_WALLET_SQL);) {
+//            statement.setInt(1, wallet.getIdUser());
+//            statement.setString(2, wallet.getIcon());
+//            statement.setString(3, wallet.getNameWallet());
+//            statement.setString(4, wallet.getDescription());
+//            statement.setInt(5, wallet.getIdWallet());
+//
+//            rowUpdated = statement.executeUpdate() > 0;
+//        }
+//        return rowUpdated;
+//    }
 
-            rowUpdated = statement.executeUpdate() > 0;
-        }
-        return rowUpdated;
-    }
-
-    public List<Wallet> selectUsersByName(String name) {
+    public List<Wallet> selectUsersByName(String name, int user_id) {
         List<Wallet> users = new ArrayList<>();
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("select * from Wallet where name like ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("select * from Wallet where name like ? and user_id=?")) {
             preparedStatement.setString(1, "%" + name + "%");
+            preparedStatement.setInt(2,user_id);
             ResultSet rs = preparedStatement.executeQuery();
 
             // Step 4: Process the ResultSet object.

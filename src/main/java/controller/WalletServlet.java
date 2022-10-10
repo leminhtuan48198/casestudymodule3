@@ -91,7 +91,7 @@ private void insertWallet(HttpServletRequest request, HttpServletResponse respon
     HttpSession httpSession=request.getSession();
 
     int user_id= (int) httpSession.getAttribute("idUser");
-    int idUser = Integer.parseInt(request.getParameter("idUser"));
+//    int idUser = Integer.parseInt(request.getParameter("idUser"));
     String icon = request.getParameter("icon");
     String name = request.getParameter("name");
     String description = request.getParameter("description");
@@ -109,22 +109,27 @@ private void insertWallet(HttpServletRequest request, HttpServletResponse respon
 
 private void updateWallet(HttpServletRequest request, HttpServletResponse response)
         throws SQLException, IOException, ServletException {
+    HttpSession httpSession=request.getSession();
+    int user_id= (int) httpSession.getAttribute("idUser");
     int id = Integer.parseInt(request.getParameter("idWallet"));
-    int idUser = Integer.parseInt(request.getParameter("idUser"));
+//    int idUser = Integer.parseInt(request.getParameter("idUser"));
     String icon = request.getParameter("icon");
     String name = request.getParameter("name");
     String description = request.getParameter("description");
 
-    Wallet book = new Wallet(id, idUser, icon, name, description);
-    walletDAO.updateUser(book);
+    Wallet book = new Wallet(id, user_id, icon, name, description);
+    walletDAO.updateWallet(book);
     RequestDispatcher dispatcher = request.getRequestDispatcher("wallet/edit.jsp");
     dispatcher.forward(request, response);
 }
 
 private void search(HttpServletRequest request, HttpServletResponse response)
         throws SQLException, IOException, ServletException {
+    HttpSession httpSession=request.getSession();
+
+    int user_id= (int) httpSession.getAttribute("idUser");
     String name = request.getParameter("name");
-    List<Wallet> walletList = walletDAO.selectUsersByName(name);
+    List<Wallet> walletList = walletDAO.selectUsersByName(name,user_id);
     request.setAttribute("WalletByName", walletList);
     RequestDispatcher dispatcher = request.getRequestDispatcher("wallet/findWallet.jsp");
     dispatcher.forward(request, response);

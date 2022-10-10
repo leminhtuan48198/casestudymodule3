@@ -23,14 +23,14 @@
             <c:if test="${wallet != null}">
                 <input type="hidden" name="idWallet" value="<c:out value='${wallet.idWallet}' />"/>
             </c:if>
-            <tr>
-                <th>Id user :</th>
-                <td>
-                    <input type="text" name="idUser" size="45"
-                           value="<c:out value='${wallet.idUser}' />"
-                    />
-                </td>
-            </tr>
+<%--            <tr>--%>
+<%--                <th>Id user :</th>--%>
+<%--                <td>--%>
+<%--                    <input type="text" name="idUser" size="45"--%>
+<%--                           value="<c:out value='${wallet.idUser}' />"--%>
+<%--                    />--%>
+<%--                </td>--%>
+<%--            </tr>--%>
             <tr>
                 <th>Icon wallet :</th>
                 <td>

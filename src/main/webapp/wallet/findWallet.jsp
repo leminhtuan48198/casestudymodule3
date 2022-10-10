@@ -29,7 +29,7 @@
         <tr>
             <td><c:out value="${wallet.getIdWallet()}"/></td>
             <td><c:out value="${wallet.getIdUser()}"/></td>
-            <td><c:out value="${wallet.getIcon()}"/></td>
+            <td><img src="<c:out value="${wallet.getIcon()}"/>" alt="image" width="=100px" height="100px"></td>
             <td><c:out value="${wallet.getNameWallet()}"/></td>
             <td><c:out value="${wallet.getDescription()}"/></td>
         </tr>

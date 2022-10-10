@@ -15,12 +15,12 @@
 <div align="center">
     <form method="post" action="/wallets?action=create">
         <table border="1" cellpadding="5">
-            <tr>
-                <th> Id User:</th>
-                <td>
-                    <input type="text" name="idUser" id="idUser" size="40"/>
-                </td>
-            </tr>
+<%--            <tr>--%>
+<%--                <th> Id User:</th>--%>
+<%--                <td>--%>
+<%--                    <input type="text" name="idUser" id="idUser" size="40"/>--%>
+<%--                </td>--%>
+<%--            </tr>--%>
             <tr>
                 <th> Icon: </th>
                 <td>

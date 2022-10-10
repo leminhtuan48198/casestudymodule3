@@ -17,7 +17,6 @@
         <caption><h2>List of wallets</h2></caption>
         <tr>
             <th>ID</th>
-            <th>Name User</th>
             <th>Icon</th>
             <th>Name wallet</th>
             <th>Description</th>
@@ -26,8 +25,7 @@
         <c:forEach var="wallet" items="${listWallet}">
             <tr>
                 <td><c:out value="${wallet.idWallet}"/></td>
-                <td><c:out value="${wallet.idUser}"/></td>
-                <td><c:out value="${wallet.icon}"/></td>
+                <td><img src="<c:out value="${wallet.icon}"/>" height="100px" width="100px"></td>
                 <td><c:out value="${wallet.nameWallet}"/></td>
                 <td><c:out value="${wallet.description}"/></td>
                 <td>
