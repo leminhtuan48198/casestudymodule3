@@ -49,9 +49,7 @@ public class DetailMoneyWalletUserServlet extends HttpServlet {
         List<DetailMoneyWalletUser> detailMWUList = detailMoneyWalletUserDAO.selectDetailMoneyWallet(user_id);
         request.setAttribute("detailMWUList", detailMWUList);
 
-
         RequestDispatcher dispatcher = request.getRequestDispatcher("viewdetailMWU/listDetailMWU.jsp");
-
         dispatcher.forward(request, response);
 
     }
