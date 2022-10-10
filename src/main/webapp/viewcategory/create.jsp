@@ -5,8 +5,8 @@
 </head>
 <body>
 <div>
-    <h1>Create New Category </h1>
-    <h2>   <a href="/categorys?action=categorys">Return Category</a> </h2>
+    <h1 align="center" >Create New Category </h1>
+    <h2 align="center">   <a href="/categorys?action=categorys"> <input type="button" value="Return Category"> </a> </h2>
     <div align="center">
         <form method="post">
             <table>

@@ -6,18 +6,7 @@
   <meta charset="ISO-8859-1">
   <title>Insert title here</title>
   <%@include file="/css.jsp"%>
-  <styte>
-    table {
-    width: 100%;
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    }
-    th, td {
-    padding: 8px;
-    text-align: left;
-    border-top: 1px solid #dee2e6;
-    }
-  </styte>
+
 </head>
 <body style="background-color: #f0fcff;">
 <c:if test="${empty userobj }">
@@ -27,7 +16,7 @@
 <%@include file="/navbar.jsp"%>
 <h1 align="center" >Category Manager</h1>
 <div class="wrapper" align="center" >
-  <h2 style="text-align: right " > <a href="/categorys?action=create"> Create new category </a></h2>
+  <h2 align="center" > <a href="/categorys?action=create"> <input type="button" value="Create new category">  </a></h2>
   <table border="1px"  width="700px"  style="font-size: 30px ">
     <%--    <caption><h2>List Catalog </h2></caption>--%>
     <tr align="center" >
@@ -40,8 +29,8 @@
         <td style="text-align: left" ><c:out value="${category.name}"/></td>
         <td style="text-align: left"><c:out value="${category.note}"/></td>
         <td align="center">
-          <a href="/categorys?action=edit&idCategory=${category.idCategory}">Edit</a>
-          <a href="/categorys?action=delete&idCategory=${category.idCategory}">Delete</a>
+          <a href="/categorys?action=edit&idCategory=${category.idCategory}"> <input type="button" value="Edit"> </a>
+          <a href="/categorys?action=delete&idCategory=${category.idCategory}">  <input type="button" value="Delete"></a>
         </td>
       </tr>
     </c:forEach>

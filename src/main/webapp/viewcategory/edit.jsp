@@ -7,8 +7,8 @@
 <body>
 <center>
     <h1>Edit</h1>
-    <h2>
-        <a href="/categorys?action=categorys">Return Category</a>
+    <h2 align="center">
+        <a href="/categorys?action=categorys"><input type="button" value="Return Category"> </a>
     </h2>
 </center>
 <div align="center">
