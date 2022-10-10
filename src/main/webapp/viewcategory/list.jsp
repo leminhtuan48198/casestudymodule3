@@ -35,5 +35,8 @@ pageEncoding="ISO-8859-1"%>
     </c:forEach>
   </table>
 </div>
+<div class="container-fluid text-center text-white p-3 mt-2" style="background-color: green">
+  <h5><i class="fa-solid fa-copyright"></i> Designed and Developed By Team</h5>
+</div>
 </body>
 </html>

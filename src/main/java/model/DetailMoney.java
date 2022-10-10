@@ -10,7 +10,6 @@ public class DetailMoney {
     protected String note;
     protected Date date;
 
-
     public DetailMoney() {
     }
 
