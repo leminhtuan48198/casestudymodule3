@@ -113,8 +113,8 @@ public class CategoryServlet extends HttpServlet {
             int user_id = (int) httpSession.getAttribute("idUser");
             int idCategory = Integer.parseInt(request.getParameter("idCategory"));
 //            int userId = Integer.parseInt(request.getParameter("user_id"));
-            List<Category> categoryList = categoryDAO.selectAllCategoryByIdUser(user_id);
             categoryDAO.deleteCategory(idCategory);
+            List<Category> categoryList = categoryDAO.selectAllCategoryByIdUser(user_id);
             request.setAttribute("categoryList", categoryList);
             RequestDispatcher dispatcher = request.getRequestDispatcher("viewcategory/list.jsp");
             dispatcher.forward(request, response);

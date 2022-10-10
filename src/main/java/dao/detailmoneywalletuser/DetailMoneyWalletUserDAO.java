@@ -11,7 +11,7 @@ import java.util.List;
 import static connectionDB.ConnectionDB.getConnection;
 
 
-public class DetailMoneyWalletUserDAO implements IDetailMoneyWalletUserDAO {
+public class DetailMoneyWalletUserDAO implements dao.detailmoneywalletuser.IDetailMoneyWalletUserDAO {
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
@@ -36,7 +36,7 @@ public class DetailMoneyWalletUserDAO implements IDetailMoneyWalletUserDAO {
                 listDetailWalletUser.add(new DetailMoneyWalletUser(idWallet,icon,name,finalMoney,sumMoney));
             }
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         return listDetailWalletUser;
     }

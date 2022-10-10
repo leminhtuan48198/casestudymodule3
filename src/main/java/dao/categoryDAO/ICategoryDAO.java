@@ -12,3 +12,4 @@ public interface ICategoryDAO {
     boolean deleteCategory(int id);
     void createCategory(Category category );
 }
+

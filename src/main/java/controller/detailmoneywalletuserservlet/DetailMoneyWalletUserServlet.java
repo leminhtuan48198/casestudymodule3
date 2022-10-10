@@ -58,11 +58,13 @@ public class DetailMoneyWalletUserServlet extends HttpServlet {
 
     private void displayDetailMWU(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-            HttpSession httpSession = request.getSession();
-            int user_id = (int) httpSession.getAttribute("idUser");
-            List<DetailMoneyWalletUser> detailMWUList = detailMoneyWalletUserDAO.selectDetailMoneyWallet(user_id);
-            request.setAttribute("detailMWUList", detailMWUList);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/home.jsp");
-            dispatcher.forward(request, response);
+
+        HttpSession httpSession = request.getSession();
+        int user_id = (int) httpSession.getAttribute("idUser");
+        List<DetailMoneyWalletUser> detailMWUList = detailMoneyWalletUserDAO.selectDetailMoneyWallet(user_id);
+        request.setAttribute("detailMWUList", detailMWUList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("viewdetailMWU/listDetailMWU.jsp");
+        dispatcher.forward(request, response);
+
     }
 }
