@@ -1,6 +1,7 @@
 package dao.categoryDAO;
 
 import model.Category;
+import model.Users;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,20 +17,25 @@ public class CategoryDAO implements ICategoryDAO {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
-    public List<Category> selectAllCatalog() {
+    public List<Category> selectAllCatalog(int user_id) {
         List<Category> categories = new ArrayList<>();
+        Category c=null;
         try {
             String query = "select * from category where user_id=?";
-            String query1 = "select * from category where idCategory = ?";
+
             connection = getConnection();
             preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1,user_id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                int idCategory = resultSet.getInt("idCategory");
-                String name = resultSet.getString("name");
-                String note = resultSet.getString("note");
-                int user_id = resultSet.getInt("user_id");
-                categories.add(new Category(idCategory, name, note, user_id));
+
+            int id=  resultSet.getInt("idCategory");
+               String name= resultSet.getString("name");
+               String note=resultSet.getString("note");
+
+                int id_users= resultSet.getInt(4);
+
+               categories.add(new Category(id,name,note,id_users));
             }
         }
         catch (SQLException e) {
