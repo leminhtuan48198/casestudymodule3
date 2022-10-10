@@ -22,12 +22,12 @@
                         <input type="text" name="note" id="note" size="45"/>
                     </td>
                 </tr>
-                <tr>
-                    <th>User_id:</th>
-                    <td>
-                        <input type="text" name="user_id" id="user_id" size="45"/>
-                    </td>
-                </tr>
+                <%--                <tr>--%>
+                <%--                    <th>User id:</th>--%>
+                <%--                    <td>--%>
+                <%--                        <input type="text" name="user_id" id="user_id" size="45"/>--%>
+                <%--                    </td>--%>
+                <%--                </tr>--%>
                 <tr>
                     <td colspan="2" align="center">
                         <input type="submit" value="Save"/>

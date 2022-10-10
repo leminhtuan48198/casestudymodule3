@@ -7,7 +7,7 @@
 </head>
 <body>
 <center>
-  <h1>DetailMoney Management</h1>
+  <h1>Detail Money Income Management</h1>
   <h2>
     <a href="detailMoneys?action=detailMoneys">List All DetailMoneys</a>
   </h2>
@@ -21,13 +21,17 @@
       <tr>
         <th> Wallet:</th>
         <td>
-          <input type="text" name="id_wallet" id="id_wallet" size="45" required/>
+          <select name="id_wallet" >
+            <c:forEach var="wallet" items="${walletList}">
+              <option value="${wallet.idWallet}"><c:out value="${wallet.nameWallet}"/></option>
+            </c:forEach>
+          </select>
         </td>
       </tr>
       <tr>
         <th>Amount Of Money:</th>
         <td>
-          <input type="text" name="money"  size="45" required/>
+          <input type="text" name="money"  size="45" required onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"/>
         </td>
       </tr>
       <tr>

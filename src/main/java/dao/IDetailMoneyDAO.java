@@ -12,9 +12,23 @@ public interface IDetailMoneyDAO {
 
     public DetailMoney selectDetailMoney(int id);
 
-    public List<DetailMoney> selectAllDetailMoneys();
+    DetailMoney selectDetailMoneyAdd(int id);
+
+    DetailMoney selectDetailMoneySub(int id);
+
+    public List<DetailMoney> selectAllDetailMoneysByUserId(int user_id);
 
     public boolean deleteDetailMoney(int id) throws SQLException;
 
-    public boolean updateDetailMoney(DetailMoney detailMoney) throws SQLException;
+//    public boolean updateDetailMoney(DetailMoney detailMoney) throws SQLException;
+
+    boolean updateDetailMoneyAdd(DetailMoney detailMoney) throws SQLException;
+
+    boolean updateDetailMoneySub(DetailMoney detailMoney) throws SQLException;
+
+    List<DetailMoney> selectDetailMoneyByIdWallet(int user_id, int id_wallet);
+
+    List<DetailMoney> selectDetailMoneyByIdUserAndToday(int user_id);
+
+    List<DetailMoney> selectDetailMoneyByIdWalletAndToday(int user_id, int wallet_id);
 }

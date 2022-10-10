@@ -6,7 +6,7 @@ public class Category {
     private String note;
     private int user_id;
 
-    private Category() {
+    public Category() {
     }
 
     public Category(int idCategory, String name, String note, int user_id) {
@@ -26,6 +26,11 @@ public class Category {
         this.name = name;
         this.note = note;
         this.user_id = user_id;
+    }
+
+    public Category(String name, String note) {
+        this.name = name;
+        this.note = note;
     }
 
     public int getIdCategory() {

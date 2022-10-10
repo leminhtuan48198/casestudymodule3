@@ -11,28 +11,29 @@ import java.util.List;
 
 import static connectionDB.ConnectionDB.getConnection;
 
-public class CategoryDAO implements ICategoryDAO {
+public class CategoryDAO implements dao.categoryDAO.ICategoryDAO {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
-    public List<Category> selectAllCatalog() {
+    public List<Category> selectAllCategory(int idCategory) {
         List<Category> categories = new ArrayList<>();
         try {
 
-            String query = "select * from category where user_id=?";
-
-
+            String query = "select * from category where  idCategory = ? ";
+//            String query1 = "select * from category where idCategory = ?";
 
             connection = getConnection();
             preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1,idCategory);
+//            preparedStatement.setInt(2,user_id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                int idCategory = resultSet.getInt("idCategory");
+                int id_Category = resultSet.getInt("idCategory");
                 String name = resultSet.getString("name");
                 String note = resultSet.getString("note");
-                int user_id = resultSet.getInt("user_id");
-                categories.add(new Category(idCategory, name, note, user_id));
+                int userId = resultSet.getInt("user_id");
+                categories.add(new Category(id_Category, name, note, userId));
             }
         }
         catch (SQLException e) {
@@ -40,7 +41,7 @@ public class CategoryDAO implements ICategoryDAO {
         }
         return categories;
     }
-    public List<Category> selectAllCatalogByIdUser(int user_id) {
+    public List<Category> selectAllCategoryByIdUser(int user_id) {
         List<Category> categoryList = new ArrayList<>();
         try {
             String query = "select * from category where user_id = ?";
@@ -52,8 +53,8 @@ public class CategoryDAO implements ICategoryDAO {
                 int idCategory = resultSet.getInt("idCategory");
                 String name = resultSet.getString("name");
                 String note = resultSet.getString("note");
-                int idUser = resultSet.getInt("user_id");
-                categoryList.add(new Category(idCategory, name, note, idUser));
+//                int idUser = resultSet.getInt("user_id");
+                categoryList.add(new Category(idCategory, name, note));
             }
         }
         catch (SQLException e) {

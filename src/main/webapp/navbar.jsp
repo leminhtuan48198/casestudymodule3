@@ -72,7 +72,7 @@
             </li>
 
             <li class="nav-item active">
-                <a style="color: #222222" class="nav-link " href="#"><i class="fa fa-credit-card" aria-hidden="true"></i> New Wallet</a>
+                <a style="color: #222222" class="nav-link " href="detailMoneys?action=detailMoneys"><i class="fa fa-credit-card" aria-hidden="true"></i> Statistic Ship</a>
             </li>
 
             <li class="nav-item active">

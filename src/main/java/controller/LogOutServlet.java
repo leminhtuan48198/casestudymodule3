@@ -15,6 +15,7 @@ public class LogOutServlet extends HttpServlet {
         try{
             HttpSession session=req.getSession();
             session.removeAttribute("userobj");
+            session.removeAttribute("idUser");
 
             HttpSession session1=req.getSession();
             session1.setAttribute("succMsg", "Logout Successfully");
