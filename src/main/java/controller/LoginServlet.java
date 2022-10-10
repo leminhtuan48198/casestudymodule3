@@ -20,6 +20,29 @@ import java.util.List;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     DetailMoneyWalletUserDAO detailMoneyWalletUserDAO=new DetailMoneyWalletUserDAO();
+
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session= req.getSession();
+        Users us= (Users) session.getAttribute("userobj");
+
+
+
+            List<DetailMoneyWalletUser> detailMoneyWalletUsers= detailMoneyWalletUserDAO.selectDetailMoneyWallet(us.getId());
+            double sum = 0;
+            for (DetailMoneyWalletUser dt: detailMoneyWalletUsers
+            ) {
+                sum += dt.getFinalMoney();
+            }
+            req.setAttribute("sum",sum) ;
+            req.setAttribute("detailMWUList",detailMoneyWalletUsers);
+            RequestDispatcher dispatcher= req.getRequestDispatcher("home.jsp");
+            dispatcher.forward(req,resp);
+//                resp.sendRedirect("home.jsp");
+
+
+    }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{
@@ -33,6 +56,12 @@ public class LoginServlet extends HttpServlet {
 
                 session.setAttribute("userobj",us);
                 List<DetailMoneyWalletUser> detailMoneyWalletUsers= detailMoneyWalletUserDAO.selectDetailMoneyWallet(us.getId());
+                double sum = 0;
+                for (DetailMoneyWalletUser dt: detailMoneyWalletUsers
+                     ) {
+                    sum += dt.getFinalMoney();
+                }
+                req.setAttribute("sum",sum) ;
                 req.setAttribute("detailMWUList",detailMoneyWalletUsers);
                 RequestDispatcher dispatcher= req.getRequestDispatcher("home.jsp");
                 dispatcher.forward(req,resp);

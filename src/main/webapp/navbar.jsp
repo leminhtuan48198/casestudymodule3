@@ -28,7 +28,7 @@
 
         <c:if test="${not empty userobj }">
             <div class="col-md-3">
-                <a href="checkout.jsp"><i class="fa fa-2x fa-address-card" aria-hidden="true"></i></a>
+              <p>All Money: <c:out value="${sum}"></c:out></p>
 
                 <a  class="btn btn-success ml-4"><i class="fas fa-user-plus"></i> ${userobj.userName}</a>
                 <a href="logout"
@@ -58,7 +58,7 @@
     <div class="collapse navbar-collapse" idCategory="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a style="color: #222222" class="nav-link dark" href="#">Home <span class="sr-only">(current)</span></a>
+                <a style="color: #222222" class="nav-link dark" href="login">Home <span class="sr-only">(current)</span></a>
             </li>
             <%
             if(u==null){%>
@@ -72,7 +72,7 @@
             </li>
 
             <li class="nav-item active">
-                <a style="color: #222222" class="nav-link " href="detailMoneys?action=detailMoneys"><i class="fa fa-credit-card" aria-hidden="true"></i> Statistic Ship</a>
+                <a style="color: #222222" class="nav-link " href="detailMoneys?action=detailMoneys"><i class="fa fa-credit-card" aria-hidden="true"></i> Statistic Roll</a>
             </li>
 
             <li class="nav-item active">
