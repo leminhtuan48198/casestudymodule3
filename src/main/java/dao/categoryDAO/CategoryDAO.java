@@ -11,7 +11,7 @@ import java.util.List;
 
 import static connectionDB.ConnectionDB.getConnection;
 
-public class CategoryDAO implements ICategoryDAO {
+public class CategoryDAO implements dao.categoryDAO.ICategoryDAO {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;

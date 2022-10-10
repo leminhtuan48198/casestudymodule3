@@ -1,17 +1,17 @@
-package dao.walletDAO;
+package dao;
 
-import dao.walletDAO.IWalletDAO;
+import connectionDB.ConnectionDB;
+import dao.IWalletDAO;
+import model.Category;
 import model.Wallet;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WalletDAO implements IWalletDAO {
+import static connectionDB.ConnectionDB.getConnection;
 
-    private String jdbcURL = "jdbc:mysql://localhost:3306/CaseStudyModule3";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "handc1";
+public class WalletDAO implements IWalletDAO {
 
     private static final String INSERT_WALLET_SQL = "INSERT INTO WALLET (user_id, icon, Name, Description) VALUES (?,?,?,?);";
     private static final String SELECT_Wallet_BY_ID = "select IdWallet,user_id,icon, Name, Description from WALLET where IdWallet =?";
@@ -19,20 +19,6 @@ public class WalletDAO implements IWalletDAO {
     private static final String DELETE_WALLET_SQL = "delete from WALLET where IdWallet = ?;";
     private static final String UPDATE_WALLET_SQL = "update WALLET set user_id= ?, icon = ?,name= ?, description =? where IdWallet = ?;";
 
-    protected Connection getConnection() {
-        Connection connection = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return connection;
-    }
 
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
@@ -149,6 +135,10 @@ public class WalletDAO implements IWalletDAO {
         return rowDeleted;
     }
 
+    protected Connection getConnection(){
+        Connection connection= ConnectionDB.getConnection();
+        return connection;
+    }
     @Override
     public boolean updateWallet(Wallet wallet) throws SQLException {
         boolean rowUpdated;
@@ -290,5 +280,27 @@ public class WalletDAO implements IWalletDAO {
             printSQLException(e);
         }
         return users;
+    }
+
+    public List<Wallet> selectAllWalletByIdUser(int user_id) {
+        List<Wallet> walletList =new ArrayList<>();
+        try {
+            String query = "select idWallet, name from wallet where user_id=?";
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1,user_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int idWallet = resultSet.getInt("idWallet");
+                String name = resultSet.getString("name");
+//                String note = resultSet.getString("note");
+//                int user_id = resultSet.getInt("user_id");
+                walletList.add(new Wallet(idWallet,name));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return walletList;
     }
 }

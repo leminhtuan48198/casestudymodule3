@@ -2,16 +2,31 @@ package model;
 
 import java.sql.Date;
 
-public class DetailMoney {
+public class DetailMoney implements Comparable<DetailMoney>{
     protected int idDetail;
     protected int id_wallet;
+    protected String name_wallet;
+    protected int user_id;
     protected double money;
     protected int id_category;
+    protected String name_category;
     protected String note;
     protected Date date;
 
 
     public DetailMoney() {
+    }
+
+    public DetailMoney(int idDetail, int id_wallet, String name_wallet, int user_id, double money, int id_category, String name_category, String note, Date date) {
+        this.idDetail = idDetail;
+        this.id_wallet = id_wallet;
+        this.name_wallet = name_wallet;
+        this.user_id = user_id;
+        this.money = money;
+        this.id_category = id_category;
+        this.name_category = name_category;
+        this.note = note;
+        this.date = date;
     }
 
     public DetailMoney(int idDetail, int id_wallet, double money, int id_category, String note, Date date) {
@@ -44,6 +59,30 @@ public class DetailMoney {
         this.money = money;
         this.note = note;
         this.date = date;
+    }
+
+    public String getName_wallet() {
+        return name_wallet;
+    }
+
+    public void setName_wallet(String name_wallet) {
+        this.name_wallet = name_wallet;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getName_category() {
+        return name_category;
+    }
+
+    public void setName_category(String name_category) {
+        this.name_category = name_category;
     }
 
     public int getIdDetail() {
@@ -86,11 +125,17 @@ public class DetailMoney {
         this.note = note;
     }
 
-    public java.sql.Date getDate() {
+    public Date getDate() {
         return date;
+
     }
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public int compareTo(DetailMoney detailMoney) {
+        return this.date.compareTo(detailMoney.date);
     }
 }

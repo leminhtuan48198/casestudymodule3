@@ -14,7 +14,17 @@ public class DetailMoneyDAO implements IDetailMoneyDAO{
         return connection;
     }
     @Override
-    public void insertDetailMoney(DetailMoney detailMoney) throws SQLException {
+    public void insertDetailMoneyIn(DetailMoney detailMoney) throws SQLException {
+        Connection connection=getConnection();
+        PreparedStatement preparedStatement=connection.prepareStatement("insert into detailMoney(id_wallet,money,note,date) values (?,?,?,?)");
+        preparedStatement.setInt(1,detailMoney.getId_wallet());
+        preparedStatement.setDouble(2,detailMoney.getMoney());
+//        preparedStatement.setInt(3,detailMoney.getId_category());
+        preparedStatement.setString(3,detailMoney.getNote());
+        preparedStatement.setDate(4,detailMoney.getDate());
+        preparedStatement.executeUpdate();
+    }
+public void insertDetailMoneyOut(DetailMoney detailMoney) throws SQLException {
         Connection connection=getConnection();
         PreparedStatement preparedStatement=connection.prepareStatement("insert into detailMoney(id_wallet,money,id_category,note,date) values (?,?,?,?,?)");
         preparedStatement.setInt(1,detailMoney.getId_wallet());
@@ -48,27 +58,105 @@ public class DetailMoneyDAO implements IDetailMoneyDAO{
 
         return detailMoney;
     }
-
     @Override
-    public List<DetailMoney> selectAllDetailMoneys() {
-        List<DetailMoney> detailMoneyList=new ArrayList<>();
+    public DetailMoney selectDetailMoneyAdd(int id) {
+        DetailMoney detailMoney=null;
         Connection connection=getConnection();
         try {
-            PreparedStatement preparedStatement= connection.prepareStatement("select * from detailMoney");
-            ResultSet rs=preparedStatement.executeQuery();
+            PreparedStatement preparedStatement=connection.prepareStatement("select  * from detailMoney where idDetail=?");
+            preparedStatement.setInt(1,id);
+            ResultSet rs =preparedStatement.executeQuery();
             while(rs.next()){
-                int idDetail=rs.getInt("idDetail");
+
+                int id_wallet=rs.getInt("id_wallet");
+                double money=rs.getDouble("money");
+//                int id_category=rs.getInt("id_category");
+                String note =rs.getString("note");
+                Date date=rs.getDate("date");
+                 detailMoney=new DetailMoney(id,id_wallet,money,note,date);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return detailMoney;
+    }
+    @Override
+    public DetailMoney selectDetailMoneySub(int id) {
+        DetailMoney detailMoney=null;
+        Connection connection=getConnection();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement("select  * from detailMoney where idDetail=?");
+            preparedStatement.setInt(1,id);
+            ResultSet rs =preparedStatement.executeQuery();
+            while(rs.next()){
+
                 int id_wallet=rs.getInt("id_wallet");
                 double money=rs.getDouble("money");
                 int id_category=rs.getInt("id_category");
                 String note =rs.getString("note");
                 Date date=rs.getDate("date");
-                detailMoneyList.add(new DetailMoney(idDetail,id_wallet,money,id_category,note,date));
+                 detailMoney=new DetailMoney(id,id_wallet,money,id_category,note,date);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return detailMoney;
+    }
+
+    @Override
+    public List<DetailMoney> selectDetailMoneyByIdWallet(int user_id, int id_wallet) {
+        List<DetailMoney> detailMoneyList=new ArrayList<>();
+        Connection connection=getConnection();
+        try {
+            PreparedStatement preparedStatement= connection.prepareStatement("select * from detailMoney_wallet_category where user_id=? and id_wallet=?");
+            preparedStatement.setInt(1,user_id);
+            preparedStatement.setInt(2,id_wallet);
+            ResultSet rs=preparedStatement.executeQuery();
+            while(rs.next()){
+                int idDetail=rs.getInt("idDetail");
+//                int id_wallet=rs.getInt("id_wallet");
+                String name_wallet=rs.getString("name_wallet");
+//                int user_id=rs.getInt("user_id");
+                double money=rs.getDouble("money");
+                int id_category=rs.getInt("id_category");
+                String name_category=rs.getString("name_category");
+                String note =rs.getString("note");
+                Date date=rs.getDate("date");
+                detailMoneyList.add(new DetailMoney(idDetail,id_wallet,name_wallet,user_id,money,id_category,name_category,note,date));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return detailMoneyList;
+    }
+
+    @Override
+    public List<DetailMoney> selectAllDetailMoneysByUserId(int user_id) {
+        List<DetailMoney> detailMoneyList=new ArrayList<>();
+        Connection connection=getConnection();
+        try {
+            PreparedStatement preparedStatement= connection.prepareStatement("select * from detailMoney_wallet_category where user_id=?");
+            preparedStatement.setInt(1,user_id);
+            ResultSet rs=preparedStatement.executeQuery();
+            while(rs.next()){
+                int idDetail=rs.getInt("idDetail");
+                int id_wallet=rs.getInt("id_wallet");
+                String name_wallet=rs.getString("name_wallet");
+//                int user_id=rs.getInt("user_id");
+                double money=rs.getDouble("money");
+                int id_category=rs.getInt("id_category");
+                String name_category=rs.getString("name_category");
+                String note =rs.getString("note");
+                Date date=rs.getDate("date");
+                detailMoneyList.add(new DetailMoney(idDetail,id_wallet,name_wallet,user_id,money,id_category,name_category,note,date));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return detailMoneyList;
+
     }
 
     @Override
@@ -82,7 +170,21 @@ public class DetailMoneyDAO implements IDetailMoneyDAO{
     }
 
     @Override
-    public boolean updateDetailMoney(DetailMoney detailMoney) throws SQLException {
+    public boolean updateDetailMoneyAdd(DetailMoney detailMoney) throws SQLException {
+        boolean rowUpdated;
+        Connection connection=getConnection();
+        PreparedStatement preparedStatement =connection.prepareStatement("update detailMoney set " +
+                "id_wallet=?,money=?,note=?,date=? where idDetail=?");
+        preparedStatement.setInt(1,detailMoney.getId_wallet());
+        preparedStatement.setDouble(2,detailMoney.getMoney());
+        preparedStatement.setString(3,detailMoney.getNote());
+        preparedStatement.setDate(4,detailMoney.getDate());
+        preparedStatement.setInt(5,detailMoney.getIdDetail());
+        rowUpdated=preparedStatement.executeUpdate()>0;
+        return rowUpdated;
+    }
+    @Override
+    public boolean updateDetailMoneySub(DetailMoney detailMoney) throws SQLException {
         boolean rowUpdated;
         Connection connection=getConnection();
         PreparedStatement preparedStatement =connection.prepareStatement("update detailMoney set " +
@@ -112,4 +214,107 @@ public class DetailMoneyDAO implements IDetailMoneyDAO{
         }
     }
 
+    public List<DetailMoney> selectDetailMoneyByIdUserAndBetweenTwoDates(int user_id, Date dateStart, Date dateEnd) {
+        Connection connection=getConnection();
+        List<DetailMoney> detailMoneyList=new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement("select * from detailMoney_wallet_category where user_id=? and (date between ? and ?)");
+            preparedStatement.setInt(1,user_id);
+            preparedStatement.setDate(2,dateStart);
+            preparedStatement.setDate(3,dateEnd);
+            ResultSet rs=preparedStatement.executeQuery();
+            while(rs.next()){
+                int idDetail=rs.getInt("idDetail");
+                int id_wallet=rs.getInt("id_wallet");
+                String name_wallet=rs.getString("name_wallet");
+//                int user_id=rs.getInt("user_id");
+                double money=rs.getDouble("money");
+                int id_category=rs.getInt("id_category");
+                String name_category=rs.getString("name_category");
+                String note =rs.getString("note");
+                Date date=rs.getDate("date");
+                detailMoneyList.add(new DetailMoney(idDetail,id_wallet,name_wallet,user_id,money,id_category,name_category,note,date));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return detailMoneyList;
+    }
+    public List<DetailMoney> selectDetailMoneyByIdUserAndToday(int user_id) {
+        Connection connection=getConnection();
+        List<DetailMoney> detailMoneyList=new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement("select * from detailMoney_wallet_category where user_id=? and date=curdate()");
+            preparedStatement.setInt(1,user_id);
+            ResultSet rs=preparedStatement.executeQuery();
+            while(rs.next()){
+                int idDetail=rs.getInt("idDetail");
+                int id_wallet=rs.getInt("id_wallet");
+                String name_wallet=rs.getString("name_wallet");
+//                int user_id=rs.getInt("user_id");
+                double money=rs.getDouble("money");
+                int id_category=rs.getInt("id_category");
+                String name_category=rs.getString("name_category");
+                String note =rs.getString("note");
+                Date date=rs.getDate("date");
+                detailMoneyList.add(new DetailMoney(idDetail,id_wallet,name_wallet,user_id,money,id_category,name_category,note,date));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return detailMoneyList;
+    }
+
+    @Override
+    public List<DetailMoney> selectDetailMoneyByIdWalletAndToday(int user_id,int wallet_id) {
+        Connection connection=getConnection();
+        List<DetailMoney> detailMoneyList=new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement("select * from detailMoney_wallet_category where id_wallet=? and date=curdate()");
+            preparedStatement.setInt(1,wallet_id);
+            ResultSet rs=preparedStatement.executeQuery();
+            while(rs.next()){
+                int idDetail=rs.getInt("idDetail");
+                int id_wallet=rs.getInt("id_wallet");
+                String name_wallet=rs.getString("name_wallet");
+//                int user_id=rs.getInt("user_id");
+                double money=rs.getDouble("money");
+                int id_category=rs.getInt("id_category");
+                String name_category=rs.getString("name_category");
+                String note =rs.getString("note");
+                Date date=rs.getDate("date");
+                detailMoneyList.add(new DetailMoney(idDetail,id_wallet,name_wallet,user_id,money,id_category,name_category,note,date));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return detailMoneyList;
+    }
+
+    public List<DetailMoney> selectDetailMoneyByIdWalletAndBetweenTwoDates(int user_id,int wallet_id, Date dateStart, Date dateEnd) {
+        Connection connection=getConnection();
+        List<DetailMoney> detailMoneyList=new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement("select * from detailMoney_wallet_category where id_wallet=? and (date between ? and ?)");
+            preparedStatement.setInt(1,wallet_id);
+            preparedStatement.setDate(2,dateStart);
+            preparedStatement.setDate(3,dateEnd);
+            ResultSet rs=preparedStatement.executeQuery();
+            while(rs.next()){
+                int idDetail=rs.getInt("idDetail");
+                int id_wallet=rs.getInt("id_wallet");
+                String name_wallet=rs.getString("name_wallet");
+//                int user_id=rs.getInt("user_id");
+                double money=rs.getDouble("money");
+                int id_category=rs.getInt("id_category");
+                String name_category=rs.getString("name_category");
+                String note =rs.getString("note");
+                Date date=rs.getDate("date");
+                detailMoneyList.add(new DetailMoney(idDetail,id_wallet,name_wallet,user_id,money,id_category,name_category,note,date));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return detailMoneyList;
+    }
 }

@@ -33,9 +33,6 @@
 <body>
 <%--<body style="background-color: #dec3c3">--%>
 
-<%
-    Users u=(Users)session.getAttribute("userobj");
-%>
 
 <%@include file="navbar.jsp"%>
 <div class="container-fluid back-img">
@@ -51,40 +48,71 @@
             <i class="bx bx-cast"></i>
             <img width="250px" height="100px" src="img/zalopay-logo-643ADC36A4-seeklogo.com.png">
             <h3> ZALO PAY</h3>
+<c:if test="${not empty userobj }">
             <p>Total number money in wallet: </p>
             <p>Total money in current: </p>
 <%--            href="view_books.jsp?bid=<%=b.getBookId() %>"--%>
-            <a href="view_wallet.jsp" style="color: white;" class="btn btn-primary btn-sm ml-1">Details </a>
+            <a href="/detailMWU?action=df" style="color: white;" class="btn btn-primary btn-sm ml-1">Details </a>
+</c:if>
         </div>
         <div class="col">
             <i class="bx bx-layer"></i>
-            <h3> Web Development</h3>
-            <p>There are many variations of passages of Loem Ipsum variable, but the majority have
-                suffered.</p>
+
+            <img width="250px" height="100px" src="img/A047eK0I0wYdKBXg2H2BQLSjQRQTVaLhq92J4Yk1.png">
+            <h3> VinID PAY</h3>
+            <c:if test="${not empty userobj }">
+                <p>Total number money in wallet: </p>
+                <p>Total money in current: </p>
+                <%--            href="view_books.jsp?bid=<%=b.getBookId() %>"--%>
+                <a href="/detailMWU?action=df" style="color: white;" class="btn btn-primary btn-sm ml-1">Details </a>
+            </c:if>
         </div>
         <div class="col">
             <i class="bx bx-user-voice"></i>
-            <h3> Web Development</h3>
-            <p>There are many variations of passages of Loem Ipsum variable, but the majority have
-                suffered.</p>
+
+            <img width="250px" height="100px" src="img/unnamed.png">
+            <h3> Momo PAY</h3>
+            <c:if test="${not empty userobj }">
+                <p>Total number money in wallet: </p>
+                <p>Total money in current: </p>
+                <%--            href="view_books.jsp?bid=<%=b.getBookId() %>"--%>
+                <a href="/detailMWU?action=df" style="color: white;" class="btn btn-primary btn-sm ml-1">Details </a>
+            </c:if>
         </div>
         <div class="col">
             <i class="bx bx-desktop"></i>
-            <h3> Web Development</h3>
-            <p>There are many variations of passages of Loem Ipsum variable, but the majority have
-                suffered.</p>
+
+            <img width="250px" height="100px" src="img/Logo%20VTC%20Pay%20_ko%20slogan.png">
+            <h3> VTC pay</h3>
+            <c:if test="${not empty userobj }">
+                <p>Total number money in wallet: </p>
+                <p>Total money in current: </p>
+                <%--            href="view_books.jsp?bid=<%=b.getBookId() %>"--%>
+                <a href="/detailMWU?action=df" style="color: white;" class="btn btn-primary btn-sm ml-1">Details </a>
+            </c:if>
         </div>
         <div class="col">
             <i class="bx bx-camera"></i>
-            <h3> Web Development</h3>
-            <p>There are many variations of passages of Loem Ipsum variable, but the majority have
-                suffered.</p>
+
+            <img width="250px" height="100px" src="img/tải%20xuống.png">
+            <h3> VnMart</h3>
+            <c:if test="${not empty userobj }">
+                <p>Total number money in wallet: </p>
+                <p>Total money in current: </p>
+                <%--            href="view_books.jsp?bid=<%=b.getBookId() %>"--%>
+                <a href="/detailMWU?action=df" style="color: white;" class="btn btn-primary btn-sm ml-1">Details </a>
+            </c:if>
         </div>
         <div class="col">
             <i class="bx bx-line-chart"></i>
-            <h3> Web Development</h3>
-            <p>There are many variations of passages of Loem Ipsum variable, but the majority have
-                suffered.</p>
+            <img width="250px" height="100px" src="img/air.png">
+            <h3>AirPay</h3>
+            <c:if test="${not empty userobj }">
+                <p>Total number money in wallet: </p>
+                <p>Total money in current: </p>
+                <%--            href="view_books.jsp?bid=<%=b.getBookId() %>"--%>
+                <a href="/detailMWU?action=df" style="color: white;" class="btn btn-primary btn-sm ml-1">Details </a>
+            </c:if>
         </div>
 
     </div>

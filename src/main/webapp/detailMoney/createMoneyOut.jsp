@@ -3,11 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-  <title>DetailMoney Management Application</title>
+  <title>Detail Money Management Application</title>
 </head>
 <body>
 <center>
-  <h1>Detail Money Income Management</h1>
+  <h1>Detail Money Outcome Management</h1>
   <h2>
     <a href="detailMoneys?action=detailMoneys">List All DetailMoneys</a>
   </h2>
@@ -33,6 +33,17 @@
         <td>
           <input type="text" name="money"  size="45" required onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"/>
         </td>
+      </tr>
+      <tr>
+        <th>Category</th>
+        <td>
+          <select name="id_category" >
+            <c:forEach var="category" items="${categoryList}">
+              <option value="${category.idCategory}"><c:out value="${category.name}"/></option>
+            </c:forEach>
+          </select>
+        </td>
+
       </tr>
       <tr>
         <th>Note</th>

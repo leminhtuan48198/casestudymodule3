@@ -9,15 +9,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet( urlPatterns = "/detailMWU")
+@WebServlet(name = "detailMoneyWalletUser", urlPatterns = "/detailMWU")
+
+
 public class DetailMoneyWalletUserServlet extends HttpServlet {
     private DetailMoneyWalletUserDAO detailMoneyWalletUserDAO;
-    public void init (){
+
+    public void init() {
         detailMoneyWalletUserDAO = new DetailMoneyWalletUserDAO();
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -40,6 +46,7 @@ public class DetailMoneyWalletUserServlet extends HttpServlet {
         }
         try {
             switch (action) {
+
                 default:
                     displayDetailMWU(request, response);
                     break;
@@ -48,16 +55,14 @@ public class DetailMoneyWalletUserServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-    private void displayDetailMWU (HttpServletRequest request,HttpServletResponse response){
-        try{
-            List<DetailMoneyWalletUser> detailMWUList = detailMoneyWalletUserDAO.selectDetailMoneyWallet();
-            request.setAttribute("detailMWUList",detailMWUList);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("viewdetailMWU/listDetailMWU.jsp");
-            dispatcher.forward(request,response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+    private void displayDetailMWU(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        HttpSession httpSession = request.getSession();
+        int user_id = (int) httpSession.getAttribute("idUser");
+        List<DetailMoneyWalletUser> detailMWUList = detailMoneyWalletUserDAO.selectDetailMoneyWallet(user_id);
+        request.setAttribute("detailMWUList", detailMWUList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("viewdetailMWU/listDetailMWU.jsp");
+        dispatcher.forward(request, response);
     }
 }

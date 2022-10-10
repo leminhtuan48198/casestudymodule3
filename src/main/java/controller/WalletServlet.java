@@ -1,6 +1,6 @@
-package controller.walletServlet;
+package controller;
 
-import dao.walletDAO.WalletDAO;
+import dao.WalletDAO;
 import model.Wallet;
 
 import javax.servlet.RequestDispatcher;

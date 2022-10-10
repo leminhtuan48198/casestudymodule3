@@ -7,7 +7,7 @@
 </head>
 <body>
 <center>
-  <h1>DetailMoney Management</h1>
+  <h1>Detail Money Add Management</h1>
   <h2>
     <a href="detailMoneys?action=detailMoneys">List All DetailMoneys</a>
   </h2>
@@ -24,29 +24,31 @@
         <input type="hidden" name="idDetail" value="<c:out value='${detailMoney.idDetail}' />"/>
       </c:if>
       <tr>
-        <th>Wallet:</th>
+        <th>Wallet Name:</th>
         <td>
-          <input type="text" name="id_wallet" size="45"
-                 value="<c:out value='${detailMoney.id_wallet}' />"
-          />
+          <select name="id_wallet" >
+            <c:forEach var="wallet" items="${walletList}">
+              <option value="${wallet.idWallet}"><c:out value="${wallet.nameWallet}"/></option>
+            </c:forEach>
+          </select>
         </td>
       </tr>
       <tr>
         <th>Amount Of Money:</th>
         <td>
-          <input type="text" name="money" size="45"
+          <input type="text" name="money" size="45" required onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
                  value="<c:out value='${detailMoney.money}' />"
           />
         </td>
       </tr>
-      <tr>
-        <th>Category:</th>
-        <td>
-          <input type="text" name="id_category" size="15"
-                 value="<c:out value='${detailMoney.id_category}' />"
-          />
-        </td>
-      </tr>
+<%--      <tr>--%>
+<%--        <th>Category:</th>--%>
+<%--        <td>--%>
+<%--          <input type="text" name="id_category" size="15"--%>
+<%--                 value="<c:out value='${detailMoney.id_category}' />"--%>
+<%--          />--%>
+<%--        </td>--%>
+<%--      </tr>--%>
       <tr>
         <th>Note:</th>
         <td>
