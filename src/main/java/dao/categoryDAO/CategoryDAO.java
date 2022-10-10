@@ -16,7 +16,30 @@ public class CategoryDAO implements ICategoryDAO {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
-    public List<Category> selectAllCatalogByIdUser(int user_id) {
+    public List<Category> selectAllCategory(int idCategory) {
+        List<Category> categories = new ArrayList<>();
+        try {
+            String query = "select * from category where  idCategory = ? ";
+//            String query1 = "select * from category where idCategory = ?";
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1,idCategory);
+//            preparedStatement.setInt(2,user_id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id_Category = resultSet.getInt("idCategory");
+                String name = resultSet.getString("name");
+                String note = resultSet.getString("note");
+                int userId = resultSet.getInt("user_id");
+                categories.add(new Category(id_Category, name, note, userId));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categories;
+    }
+    public List<Category> selectAllCategoryByIdUser(int user_id) {
         List<Category> categoryList = new ArrayList<>();
         try {
             String query = "select * from category where user_id = ?";
@@ -28,8 +51,8 @@ public class CategoryDAO implements ICategoryDAO {
                 int idCategory = resultSet.getInt("idCategory");
                 String name = resultSet.getString("name");
                 String note = resultSet.getString("note");
-                int idUser = resultSet.getInt("user_id");
-                categoryList.add(new Category(idCategory, name, note, idUser));
+//                int idUser = resultSet.getInt("user_id");
+                categoryList.add(new Category(idCategory, name, note));
             }
         }
         catch (SQLException e) {
@@ -38,27 +61,6 @@ public class CategoryDAO implements ICategoryDAO {
         return categoryList;
     }
 
-    public List<Category> selectAllCatalog() {
-        List<Category> categories = new ArrayList<>();
-        try {
-            String query = "select * from category where user_id=?";
-            String query1 = "select * from category where idCategory = ?";
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                int idCategory = resultSet.getInt("idCategory");
-                String name = resultSet.getString("name");
-                String note = resultSet.getString("note");
-                int user_id = resultSet.getInt("user_id");
-                categories.add(new Category(idCategory, name, note, user_id));
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return categories;
-    }
     @Override
     public boolean editCategory(Category category) {
         boolean rowEdit;
@@ -99,36 +101,13 @@ public class CategoryDAO implements ICategoryDAO {
     }
 
     @Override
-    public Category getUserId(int user_id) {
-        String query = "select idCategory,name,note,user_id from category where user_id ? ";
-        Category userId = null;
-        try{
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1,user_id);
-            System.out.println(preparedStatement);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                int idCategory = resultSet.getInt("idcategory");
-                String name = resultSet.getString("name");
-                String note = resultSet.getString("note");
-//                int user_id = resultSet.getInt("user_id");
-                userId = new Category(idCategory,name,note);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return userId;
-    }
-
-    @Override
-    public boolean deleteCategory(int id) {
+    public boolean deleteCategory(int idCategory) {
         boolean rowCategory = false;
         try{
-            String query = "delete from category where idCategory= ?";
+            String query = "delete from category where idCategory = ?";
             connection = getConnection();
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(1,idCategory);
             rowCategory = preparedStatement.executeUpdate() >0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -150,5 +129,28 @@ public class CategoryDAO implements ICategoryDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public List<Category> selectCategoryByIdUser(int idUser) {
+        List<Category> categories = new ArrayList<>();
+        try {
+            String query = "select * from category where user_id=?";
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1,idUser);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int idCategory = resultSet.getInt("idCategory");
+                String name = resultSet.getString("name");
+                String note = resultSet.getString("note");
+                int user_id = resultSet.getInt("user_id");
+                categories.add(new Category(idCategory, name, note, user_id));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categories;
     }
 }
