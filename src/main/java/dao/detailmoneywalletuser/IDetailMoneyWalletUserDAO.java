@@ -5,5 +5,5 @@ import model.DetailMoneyWalletUser;
 import java.util.List;
 
 public interface IDetailMoneyWalletUserDAO {
-    List<DetailMoneyWalletUser> selectDetailMoneyWallet ();
+    List<DetailMoneyWalletUser> selectDetailMoneyWallet (int idUser);
 }

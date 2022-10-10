@@ -2,9 +2,11 @@ package controller;
 
 
 import dao.DetailMoneyDAO;
+import dao.WalletDAO;
 import dao.categoryDAO.CategoryDAO;
 import model.Category;
 import model.DetailMoney;
+import model.Wallet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,13 +19,18 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @WebServlet(name = "DetailMoneyServlet", urlPatterns = "/detailMoneys")
 public class DetailMoneyServlet extends HttpServlet {
     public static List<DetailMoney> detailMoneyListSort = new ArrayList<>();
     private DetailMoneyDAO detailMoneyDAO;
+
     public CategoryDAO categoryDAO = new CategoryDAO();
+
+    public WalletDAO walletDAO=new WalletDAO();
+
 
     public void init() {
         detailMoneyDAO = new DetailMoneyDAO();
@@ -49,9 +56,56 @@ public class DetailMoneyServlet extends HttpServlet {
                 case "editSub":
                     updateDetailMoneySub(request, response);
                     break;
+                case "statisticRangeDate":
+                    statisticRangeDate(request,response);
+                    break;
+                case "statisticToday":
+                    statisticToday(request,response);
+                    break;
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
+        }
+    }
+
+    private void statisticRangeDate(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession httpSession=request.getSession();
+        int user_id=(int)httpSession.getAttribute("idUser");
+        int wallet_id =Integer.parseInt(request.getParameter("id_wallet"));
+        Date dateStart=Date.valueOf(request.getParameter("dateStart"));
+        Date dateEnd=Date.valueOf(request.getParameter("dateEnd"));
+        if(wallet_id==0){
+            detailMoneyListSort=detailMoneyDAO.selectDetailMoneyByIdUserAndBetweenTwoDates(user_id,dateStart,dateEnd);
+        }else{
+            detailMoneyListSort=detailMoneyDAO.selectDetailMoneyByIdWalletAndBetweenTwoDates(user_id,wallet_id,dateStart,dateEnd);
+        }
+        request.setAttribute("listDetailMoney", detailMoneyListSort);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void statisticToday(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession httpSession=request.getSession();
+        int user_id=(int)httpSession.getAttribute("idUser");
+        int wallet_id =Integer.parseInt(request.getParameter("id_wallet"));
+        if(wallet_id==0){
+            detailMoneyListSort=detailMoneyDAO.selectDetailMoneyByIdUserAndToday(user_id);
+        }else{
+            detailMoneyListSort=detailMoneyDAO.selectDetailMoneyByIdWalletAndToday(user_id,wallet_id);
+        }
+        request.setAttribute("listDetailMoney", detailMoneyListSort);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -80,7 +134,22 @@ public class DetailMoneyServlet extends HttpServlet {
                     deleteDetailMoney(request, response);
                     break;
                 case "listDetailMoneyById_wallet":
-                    listDetailMoneyByIdWallet(request, response);
+
+                    listDetailMoneyByIdWallet(request,response);
+                    break;
+                case "sortByDate":
+                    sortByDateIncrease(request,response);
+                    break;
+                case "reverseDate":
+                    sortByDateDecrease(request,response);
+                    break;
+                case "statisticRangeDate":
+                    showStatisticRangeDateForm(request,response);
+                    break;
+                case "statisticToday":
+                    showStatisticTodayForm(request,response);
+                    break;
+
 
                 default:
                     listDetailMoney(request, response);
@@ -88,6 +157,67 @@ public class DetailMoneyServlet extends HttpServlet {
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
+        }
+    }
+
+    private void showStatisticRangeDateForm(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession httpSession=request.getSession();
+
+        int user_id= (int) httpSession.getAttribute("idUser");
+        List<Wallet> walletList=new ArrayList<>();
+        walletList=walletDAO.selectAllWalletByIdUser(user_id);
+        request.setAttribute("walletList",walletList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/statisticRangeDate.jsp");
+
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void showStatisticTodayForm(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession httpSession=request.getSession();
+
+        int user_id= (int) httpSession.getAttribute("idUser");
+        List<Wallet> walletList=new ArrayList<>();
+        walletList=walletDAO.selectAllWalletByIdUser(user_id);
+        request.setAttribute("walletList",walletList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/statisticToday.jsp");
+
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sortByDateDecrease(HttpServletRequest request, HttpServletResponse response) {
+        Collections.reverse(detailMoneyListSort);
+        request.setAttribute("listDetailMoney", detailMoneyListSort);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sortByDateIncrease(HttpServletRequest request, HttpServletResponse response) {
+        Collections.sort(detailMoneyListSort);
+        request.setAttribute("listDetailMoney", detailMoneyListSort);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -109,20 +239,34 @@ public class DetailMoneyServlet extends HttpServlet {
 
     private void listDetailMoney(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        HttpSession httpSession = request.getSession();
-        int user_id = (int) httpSession.getAttribute("idUser");
-        List<DetailMoney> listDetailMoney = detailMoneyDAO.selectAllDetailMoneysByUserId(user_id);
-        request.setAttribute("listDetailMoney", listDetailMoney);
+
+
+        HttpSession httpSession=request.getSession();
+        int user_id=(int)httpSession.getAttribute("idUser");
+
+         detailMoneyListSort = detailMoneyDAO.selectAllDetailMoneysByUserId(user_id);
+
+        request.setAttribute("listDetailMoney",detailMoneyListSort );
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/list.jsp");
         dispatcher.forward(request, response);
     }
 
     private void showNewFormIn(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int idUser = 0;
-        List<Category> categoryList = new ArrayList<>();
-        categoryList = categoryDAO.selectCategoryByIdUser(idUser);
-        request.setAttribute("categoryList", categoryList);
+
+
+        HttpSession httpSession=request.getSession();
+
+        int user_id= (int) httpSession.getAttribute("idUser");
+        List<Wallet> walletList=new ArrayList<>();
+        walletList=walletDAO.selectAllWalletByIdUser(user_id);
+        request.setAttribute("walletList",walletList);
+
+//        List<Category> categoryList=new ArrayList<>();
+//        categoryList=categoryDAO.selectCategoryByIdUser(idUser);
+//        request.setAttribute("categoryList",categoryList);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/createMoneyIn.jsp");
 
         dispatcher.forward(request, response);
@@ -132,11 +276,17 @@ public class DetailMoneyServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession httpSession = request.getSession();
 
-        int user_id = (int) httpSession.getAttribute("idUser");
-        List<Category> categoryList = new ArrayList<>();
-        CategoryDAO categoryDAO = new CategoryDAO();
-        categoryList = categoryDAO.selectAllCategoryByIdUser(user_id);
-        request.setAttribute("categoryList", categoryList);
+
+        int user_id= (int) httpSession.getAttribute("idUser");
+        List<Category> categoryList=new ArrayList<>();
+        categoryList=categoryDAO.selectAllCategoryByIdUser(user_id);
+        request.setAttribute("categoryList",categoryList);
+
+
+        List<Wallet> walletList=new ArrayList<>();
+        walletList=walletDAO.selectAllWalletByIdUser(user_id);
+        request.setAttribute("walletList",walletList);
+
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/createMoneyOut.jsp");
         dispatcher.forward(request, response);
@@ -144,29 +294,43 @@ public class DetailMoneyServlet extends HttpServlet {
 
     private void showEditFormAdd(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
+        HttpSession httpSession=request.getSession();
 
-        int id = Integer.parseInt(request.getParameter("id"));
-        DetailMoney existingDetailMoney = detailMoneyDAO.selectDetailMoneyAdd(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/editAdd.jsp");
-        request.setAttribute("detailMoney", existingDetailMoney);
+
+        int user_id= (int) httpSession.getAttribute("idUser");
+        List<Wallet> walletList=new ArrayList<>();
+        walletList=walletDAO.selectAllWalletByIdUser(user_id);
+        request.setAttribute("walletList",walletList);
+            int id = Integer.parseInt(request.getParameter("id"));
+            DetailMoney existingDetailMoney = detailMoneyDAO.selectDetailMoneyAdd(id);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/editAdd.jsp");
+            request.setAttribute("detailMoney", existingDetailMoney);
+
         dispatcher.forward(request, response);
 
     }
 
     private void showEditFormSub(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
-        HttpSession httpSession = request.getSession();
 
-        int user_id = (int) httpSession.getAttribute("idUser");
-        List<Category> categoryList = new ArrayList<>();
-        CategoryDAO categoryDAO = new CategoryDAO();
-        categoryList = categoryDAO.selectAllCategoryByIdUser(user_id);
-        request.setAttribute("categoryList", categoryList);
 
-        int id = Integer.parseInt(request.getParameter("id"));
-        DetailMoney existingDetailMoney = detailMoneyDAO.selectDetailMoneySub(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/editSub.jsp");
-        request.setAttribute("detailMoney", existingDetailMoney);
+        HttpSession httpSession=request.getSession();
+
+        int user_id= (int) httpSession.getAttribute("idUser");
+
+        List<Wallet> walletList=new ArrayList<>();
+        walletList=walletDAO.selectAllWalletByIdUser(user_id);
+        request.setAttribute("walletList",walletList);
+        List<Category> categoryList=new ArrayList<>();
+        CategoryDAO categoryDAO=new CategoryDAO();
+        categoryList=categoryDAO.selectAllCategoryByIdUser(user_id);
+        request.setAttribute("categoryList",categoryList);
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            DetailMoney existingDetailMoney = detailMoneyDAO.selectDetailMoneySub(id);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("detailMoney/editSub.jsp");
+            request.setAttribute("detailMoney", existingDetailMoney);
+
         dispatcher.forward(request, response);
 
     }

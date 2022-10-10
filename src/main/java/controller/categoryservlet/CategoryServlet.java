@@ -1,6 +1,5 @@
 package controller.categoryservlet;
 
-
 import dao.categoryDAO.CategoryDAO;
 import model.Category;
 
@@ -74,8 +73,6 @@ public class CategoryServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         HttpSession httpSession = request.getSession();
         int user_id = (int) httpSession.getAttribute("idUser");
-//            int userId= (int) httpSession.getAttribute("user_id");
-//            int idCategory =(int)httpSession.getAttribute("idCategory");
         List<Category> categoryList = categoryDAO.selectAllCategoryByIdUser(user_id);
         request.setAttribute("categoryList", categoryList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("viewcategory/list.jsp");
@@ -112,12 +109,12 @@ public class CategoryServlet extends HttpServlet {
 
     private void deleteCategory(HttpServletRequest request, HttpServletResponse response) {
         try {
-//            HttpSession httpSession = request.getSession();
-//            int user_id = (int) httpSession.getAttribute("idUser");
+            HttpSession httpSession = request.getSession();
+            int user_id = (int) httpSession.getAttribute("idUser");
             int idCategory = Integer.parseInt(request.getParameter("idCategory"));
 //            int userId = Integer.parseInt(request.getParameter("user_id"));
             categoryDAO.deleteCategory(idCategory);
-            List<Category> categoryList = categoryDAO.selectAllCategory(idCategory);
+            List<Category> categoryList = categoryDAO.selectAllCategoryByIdUser(user_id);
             request.setAttribute("categoryList", categoryList);
             RequestDispatcher dispatcher = request.getRequestDispatcher("viewcategory/list.jsp");
             dispatcher.forward(request, response);
@@ -131,8 +128,8 @@ public class CategoryServlet extends HttpServlet {
     private void createCategory(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession httpSession=request.getSession();
-
             int user_id= (int) httpSession.getAttribute("idUser");
+
             String name = request.getParameter("name");
             String note = request.getParameter("note");
 

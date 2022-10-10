@@ -20,6 +20,14 @@ public class DetailMoneyWalletUser {
         this.sumMoney = sumMoney;
     }
 
+    public DetailMoneyWalletUser(int idWallet, String icon, String name, double finalMoney, double sumMoney) {
+        this.idWallet = idWallet;
+        this.icon = icon;
+        this.name = name;
+        this.finalMoney = finalMoney;
+        this.sumMoney = sumMoney;
+    }
+
     public int getIdUser() {
         return idUser;
     }

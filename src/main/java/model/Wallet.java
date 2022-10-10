@@ -7,6 +7,11 @@ public class Wallet {
     public Wallet() {
     }
 
+    public Wallet(int idWallet, String nameWallet) {
+        this.idWallet = idWallet;
+        this.nameWallet = nameWallet;
+    }
+
     public Wallet(int idUser, String icon, String nameWallet, String description) {
         super();
         this.idUser = idUser;

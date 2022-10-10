@@ -2,11 +2,14 @@ package dao;
 
 import connectionDB.ConnectionDB;
 import dao.IWalletDAO;
+import model.Category;
 import model.Wallet;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static connectionDB.ConnectionDB.getConnection;
 
 public class WalletDAO implements IWalletDAO {
 
@@ -277,5 +280,27 @@ public class WalletDAO implements IWalletDAO {
             printSQLException(e);
         }
         return users;
+    }
+
+    public List<Wallet> selectAllWalletByIdUser(int user_id) {
+        List<Wallet> walletList =new ArrayList<>();
+        try {
+            String query = "select idWallet, name from wallet where user_id=?";
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1,user_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int idWallet = resultSet.getInt("idWallet");
+                String name = resultSet.getString("name");
+//                String note = resultSet.getString("note");
+//                int user_id = resultSet.getInt("user_id");
+                walletList.add(new Wallet(idWallet,name));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return walletList;
     }
 }

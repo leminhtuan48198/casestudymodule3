@@ -2,7 +2,7 @@ package model;
 
 import java.sql.Date;
 
-public class DetailMoney {
+public class DetailMoney implements Comparable<DetailMoney>{
     protected int idDetail;
     protected int id_wallet;
     protected String name_wallet;
@@ -132,5 +132,10 @@ public class DetailMoney {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public int compareTo(DetailMoney detailMoney) {
+        return this.date.compareTo(detailMoney.date);
     }
 }
