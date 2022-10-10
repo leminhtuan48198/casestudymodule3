@@ -57,7 +57,7 @@
         </c:forEach>
     </table>
 </div>
-<a href="/detailMoneys?action=sortByDate" >sort By Date Increase </a>
+<a href="/detailMoneys?action=sortByDate" ><input type="button" value="sort By Date Increase "></a>
 <br>
 <a href="/detailMoneys?action=reverseDate">sort By Date Decrease</a>
 <br>

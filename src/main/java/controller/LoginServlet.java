@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("idUser",us.getId());
 
                 session.setAttribute("userobj",us);
-                List<DetailMoneyWalletUser> detailMoneyWalletUsers= detailMoneyWalletUserDAO.selectDetailMoneyWallet();
+                List<DetailMoneyWalletUser> detailMoneyWalletUsers= detailMoneyWalletUserDAO.selectDetailMoneyWallet(us.getId());
                 req.setAttribute("detailMWUList",detailMoneyWalletUsers);
                 RequestDispatcher dispatcher= req.getRequestDispatcher("home.jsp");
                 dispatcher.forward(req,resp);

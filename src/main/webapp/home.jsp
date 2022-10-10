@@ -56,7 +56,7 @@
                 <p>Total number money in wallet: <c:out value="${detail.sumMoney}"/></p>
                 <p>Total money in current: <c:out value="${detail.finalMoney}"/></p>
                 <%--            href="view_books.jsp?bid=<%=b.getBookId() %>"--%>
-                <a href="/detailMoneys/list.jsp" style="color: white;" class="btn btn-primary btn-sm ml-1">Details </a>
+                <a href="/detailMoneys?action=listDetailMoneyById_wallet&idWallet=${detail.idWallet}" style="color: white;" class="btn btn-primary btn-sm ml-1">Details </a>
             </c:if>
         </div>
     </c:forEach>
